@@ -1,0 +1,65 @@
+@import '../../helpers/styles/constants.scss';
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.modal__container {
+  width: 600px;
+  min-height: calc(100vh / 2);
+  padding: 32px;
+  margin: auto;
+  background-color: $background-secondary;
+
+  border: none;
+  border-radius: 32px;
+}
+
+.modal__title {
+  margin-bottom: 32px;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  text-align: center;
+
+  color: $color-secondary;
+}
+
+.modal__button {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-left: auto;
+  margin-bottom: 32px;
+
+  cursor: pointer;
+
+  color: $color-secondary;
+
+  background-color: transparent;
+
+  border: 2px solid currentColor;
+
+  border-radius: 50%;
+
+  &:hover,
+  &:focus {
+    color: $color-accent;
+    transform: scale(1.1);
+  }
+}
+
+.modal__button-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}

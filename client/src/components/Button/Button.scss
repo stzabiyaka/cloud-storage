@@ -1,0 +1,36 @@
+@import '../../helpers/styles/constants.scss';
+
+.button {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px;
+
+  font-weight: 500;
+  line-height: 1;
+
+  color: $color-secondary;
+
+  background-color: transparent;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    color: $color-accent;
+
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px $color-accent);
+  }
+}
+
+.button__icon {
+  width: 1em;
+  height: 1em;
+
+  fill: currentColor;
+}

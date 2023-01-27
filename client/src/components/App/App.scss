@@ -1,0 +1,10 @@
+@import '../../helpers/styles/constants.scss';
+
+.application {
+  width: 100%;
+  min-height: 100vh;
+
+  color: #ffffff;
+
+  background-color: $background-primary;
+}

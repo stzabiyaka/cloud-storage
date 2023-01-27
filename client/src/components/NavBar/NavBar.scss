@@ -1,0 +1,68 @@
+@import '../../helpers/styles/constants.scss';
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+
+  color: $color-secondary;
+
+  background-color: $background-secondary;
+}
+
+.navbar__logo {
+  width: 32px;
+  margin-right: 32px;
+
+  fill: currentColor;
+}
+
+.navbar__title {
+  font-size: 24px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  color: $color-secondary;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.logo__link {
+  display: flex;
+  align-items: center;
+  color: $color-secondary;
+
+  &:hover,
+  &:focus {
+    color: $color-accent;
+  }
+}
+
+.navlinks__list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.navlinks__list-item {
+  &:not(:last-of-type) {
+    margin-right: 32px;
+  }
+}
+
+.navlink {
+  color: $color-secondary;
+
+  &.active,
+  &:hover,
+  &:focus {
+    color: $color-accent;
+  }
+}

@@ -1,0 +1,30 @@
+@import '../../helpers/styles/constants.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  margin: auto;
+  padding: 32px;
+
+  background-color: $background-triadic;
+  border-radius: 32px;
+}
+
+.form__title {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.form__notification {
+  display: block;
+  margin: 0 auto;
+
+  font-size: 12px;
+
+  color: $color-secondary;
+}
+
+.form__notification-link {
+  color: $color-primary;
+}

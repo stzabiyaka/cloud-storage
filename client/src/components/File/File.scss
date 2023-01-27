@@ -1,0 +1,54 @@
+@import '../../helpers/styles/constants.scss';
+
+.file {
+  display: grid;
+  grid-template-columns: 1fr 4fr repeat(4, 1fr);
+  align-items: center;
+
+  color: $color-primary;
+
+  &:not(:last-of-type) {
+    margin-bottom: 16px;
+  }
+
+  &:not(.header):hover {
+    cursor: pointer;
+
+    color: $color-accent;
+
+    transform: scale(1.01);
+  }
+
+  &.header {
+    color: $color-secondary;
+
+    // border: 1px solid $color-secondary;
+  }
+}
+
+.file__icon {
+  grid-column-start: 1;
+  justify-self: center;
+
+  &-picture {
+    width: 50px;
+    height: 50px;
+    fill: currentColor;
+  }
+}
+
+.file_name {
+  grid-column-start: 2;
+}
+
+.file_date {
+  grid-column-start: 5;
+}
+
+.file_size {
+  grid-column-start: 6;
+}
+
+.file__info {
+  display: block;
+}
