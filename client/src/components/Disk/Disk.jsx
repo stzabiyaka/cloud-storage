@@ -11,11 +11,12 @@ import Button from '../Button/Button';
 import FilesList from '../FilesList';
 import Modal from '../Modal/Modal';
 import CreateDirPopUp from '../CreateDirPopUp';
+import UploadFilePopUp from '../UploadFilePopUp';
 
 import './Disk.scss';
 
 const Disk = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(null);
 
   const dispatch = useDispatch();
   const currentDir = useSelector(selectCurrentDir);
@@ -26,7 +27,7 @@ const Disk = () => {
   }, [currentDir, dispatch]);
 
   const handleClickBackBtn = () => {
-    const backDirId = dirStack.shift();
+    const backDirId = dirStack.pop();
     dispatch(setCurrentDir(backDirId));
     dispatch(setDirStack(dirStack));
   };
@@ -34,16 +35,28 @@ const Disk = () => {
   return (
     <div className="disk">
       <ul className="disk__controls">
-        <li className="disk__controls-item">
-          <Button title="Go back" icon="arrow-left" type="button" onClick={handleClickBackBtn} />
-        </li>
+        {currentDir && (
+          <li className="disk__controls-item">
+            <Button title="Go back" icon="arrow-left" type="button" onClick={handleClickBackBtn} />
+          </li>
+        )}
         <li className="disk__controls-item">
           <Button
             title="Create folder"
             label="Create folder"
             type="button"
             onClick={() => {
-              setShowModal(true);
+              setShowModal('dir');
+            }}
+          />
+        </li>
+        <li className="disk__controls-item">
+          <Button
+            title="Upload file"
+            label="Upload file"
+            type="button"
+            onClick={() => {
+              setShowModal('file');
             }}
           />
         </li>
@@ -51,12 +64,12 @@ const Disk = () => {
       <FilesList />
       {showModal && (
         <Modal
-          title={'Create new folder'}
+          title={showModal === 'dir' ? 'Create new folder' : 'Upload file'}
           onClose={() => {
-            setShowModal(false);
+            setShowModal(null);
           }}
         >
-          <CreateDirPopUp />
+          {showModal === 'dir' ? <CreateDirPopUp /> : <UploadFilePopUp />}
         </Modal>
       )}
     </div>

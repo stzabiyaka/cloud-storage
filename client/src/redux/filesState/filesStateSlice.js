@@ -19,7 +19,7 @@ const filesStateSlice = createSlice({
       state.currentDirectory = action.payload;
     },
     pushDirToStack(state, action) {
-      state.directoriesStack = [action.payload, ...state.directoriesStack];
+      state.directoriesStack = [...state.directoriesStack, action.payload];
     },
     setDirStack(state, action) {
       state.directoriesStack = action.payload;

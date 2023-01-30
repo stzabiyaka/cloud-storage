@@ -23,7 +23,7 @@ const CreateDirPopUp = ({ onSuccess }) => {
 
   return (
     <>
-      <FormInput name="Name" value={dirName} setValue={setDirName} />
+      <FormInput name="folder name" value={dirName} setValue={setDirName} />
       <Button type="submit" label="Create Folder" title="Create Folder" onClick={handleCreateDir} />
     </>
   );

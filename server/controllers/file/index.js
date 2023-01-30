@@ -1,4 +1,5 @@
-const addFile = require('./addFile');
+const createDir = require('./createDir');
+const uploadFile = require('./uploadFile');
 const fetchFiles = require('./fetchFiles');
 
-module.exports = { addFile, fetchFiles };
+module.exports = { createDir, uploadFile, fetchFiles };

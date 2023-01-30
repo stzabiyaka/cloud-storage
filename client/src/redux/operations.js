@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { authAPI, userAPI, filesAPI } from '../api';
+import { authAPI, userAPI, filesAPI } from '../services/apiService';
 
 // USER //
 

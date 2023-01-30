@@ -6,7 +6,38 @@
 }
 
 .form__input-label {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 150px;
+  max-width: 100%;
+  width: fit-content;
+  min-height: 150px;
+  margin: 0 auto 32px auto;
+  padding: 16px;
+
+  cursor: pointer;
+
+  text-align: center;
+
+  color: $color-secondary;
+
+  border: 1px dashed currentColor;
+  border-radius: 32px;
+
+  &:hover {
+    transform: scale(1.01);
+    border-width: 2px;
+    color: $color-accent;
+  }
+}
+
+.form__input-icon {
+  width: 75px;
+  height: 75px;
+
+  fill: currentColor;
 }
 
 .form__input-field {

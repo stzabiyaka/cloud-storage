@@ -19,12 +19,17 @@
 
   cursor: pointer;
 
-  &:hover,
-  &:focus {
+  &:not(:disabled):hover,
+  &:not(:disabled):focus {
     color: $color-accent;
 
     transform: scale(1.1);
     filter: drop-shadow(0 0 20px $color-accent);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 }
 
