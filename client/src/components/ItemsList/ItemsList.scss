@@ -1,0 +1,10 @@
+@import '../../helpers/styles/constants.scss';
+
+.items__list {
+  list-style-type: none;
+  padding: 16px;
+}
+
+.items__list-item {
+  color: $color-primary;
+}

@@ -19,7 +19,7 @@ const NavBar = () => {
 
   return (
     <header className="navbar">
-      <div className="container">
+      <div className="container container--navbar">
         <nav className="nav">
           <NavLink to="/" className="logo__link">
             <svg aria-label="Logo" className="navbar__logo">

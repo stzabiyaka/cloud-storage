@@ -4,6 +4,8 @@ import {
   selectCurrentDir,
   pushDirToStack,
 } from '../../redux/filesState/filesStateSlice';
+import { filesAPI } from '../../services/apiService';
+import Button from '../Button/Button';
 import icons from '../../assets/icons/icons.svg';
 import './File.scss';
 
@@ -12,15 +14,23 @@ const File = ({ id, name, date, size, type, header = false }) => {
   const dispatch = useDispatch();
   const currentDir = useSelector(selectCurrentDir);
 
-  const handleClick = () => {
-    if (type === 'dir') {
-      dispatch(pushDirToStack(currentDir));
-      dispatch(setCurrentDir(id));
+  const isDownloadable = !header && type !== 'dir';
+
+  const handleFileClick = () => {
+    if (type !== 'dir') {
+      return;
     }
+    dispatch(pushDirToStack(currentDir));
+    dispatch(setCurrentDir(id));
+  };
+
+  const handleDownload = event => {
+    event.stopPropagation();
+    filesAPI.downloadFile({ id, name });
   };
 
   return (
-    <li className={header ? 'file header' : 'file'} onClick={handleClick}>
+    <li className={header ? 'file header' : 'file'} onClick={handleFileClick}>
       <div className="file__icon">
         {!header && (
           <svg className="file__icon-picture">
@@ -37,6 +47,11 @@ const File = ({ id, name, date, size, type, header = false }) => {
       <div className="file__size">
         <p className="file__info">{size}</p>
       </div>
+      {isDownloadable && (
+        <div className="file__download">
+          <Button type="button" label="Download" title="Download file" onClick={handleDownload} />
+        </div>
+      )}
     </li>
   );
 };

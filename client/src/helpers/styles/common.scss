@@ -1,10 +1,18 @@
 .container {
+  display: flex;
+  flex-direction: column;
   width: 1136px;
+  min-height: calc(100vh - 50px - ($layout-unit * 8));
   margin: 0 auto;
+
+  &--navbar {
+    min-height: calc($layout-unit * 4);
+  }
 }
 
 .section {
-  padding: 32px 0;
+  min-height: calc(100vh - 50px);
+  padding: calc($layout-unit * 4) 0;
 }
 
 .section__title {

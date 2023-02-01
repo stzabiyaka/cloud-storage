@@ -52,8 +52,8 @@ const Disk = () => {
         </li>
         <li className="disk__controls-item">
           <Button
-            title="Upload file"
-            label="Upload file"
+            title="Upload files"
+            label="Upload files"
             type="button"
             onClick={() => {
               setShowModal('file');
@@ -64,7 +64,7 @@ const Disk = () => {
       <FilesList />
       {showModal && (
         <Modal
-          title={showModal === 'dir' ? 'Create new folder' : 'Upload file'}
+          title={showModal === 'dir' ? 'Create new folder' : 'Choose files to uplod'}
           onClose={() => {
             setShowModal(null);
           }}

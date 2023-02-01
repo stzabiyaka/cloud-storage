@@ -22,10 +22,10 @@ const CreateDirPopUp = ({ onSuccess }) => {
   };
 
   return (
-    <>
+    <form onSubmit={handleCreateDir}>
       <FormInput name="folder name" value={dirName} setValue={setDirName} />
-      <Button type="submit" label="Create Folder" title="Create Folder" onClick={handleCreateDir} />
-    </>
+      <Button type="submit" label="Create Folder" title="Create Folder" mt="32px" />
+    </form>
   );
 };
 

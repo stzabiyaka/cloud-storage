@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { authAPI } from '../../api';
+import { authAPI } from '../../services/apiService';
 import { signInUser } from '../../redux/operations';
 import FormInput from '../FormInput';
 import Button from '../Button/Button';
@@ -38,7 +38,13 @@ const SignForm = ({ action }) => {
       <h2 className="form__title">{title}</h2>
       <FormInput value={email} setValue={setEmail} type="email" name="email" />
       <FormInput value={password} setValue={setPassword} type="password" name="password" />
-      <Button type="submit" title="Submit" label={isSignIn ? 'Sign In' : 'Sign Up'} mb="32px" />
+      <Button
+        type="submit"
+        title="Submit"
+        label={isSignIn ? 'Sign In' : 'Sign Up'}
+        mb="32px"
+        mt="32px"
+      />
       <p className="form__notification">
         {`If you ${!isSignIn ? 'already have an' : 'do not have an'} account, please `}
         <NavLink to={isSignIn ? '/signup' : '/signin'} className="form__notification-link">

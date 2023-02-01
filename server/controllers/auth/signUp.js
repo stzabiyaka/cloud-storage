@@ -13,8 +13,18 @@ const signUp = async (req, res) => {
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
+
   const user = await User.create({ email, password: hashedPassword });
-  await fileServices.addFileService({ owner: user._id, filePath: '' });
+
+  const dirData = { owner: user._id, filePath: '' };
+
+  const isDirExist = await fileServices.checkIsExistService(dirData);
+
+  if (isDirExist) {
+    throw requestError(409, `Directory already exists.`);
+  }
+
+  await fileServices.createDirService(dirData);
 
   return res.status(201).json({ message: 'User successfully created' });
 };
