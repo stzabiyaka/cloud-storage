@@ -29,10 +29,9 @@ export const addFile = async ({ dirId, name, type, file }, thunkAPI) => {
         data = { name, type: 'dir', parent: dirId };
         break;
       default:
-        url += 'upload/';
+        url += dirId;
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('parent', dirId);
         data = formData;
     }
 
@@ -61,8 +60,7 @@ export const downloadFile = async ({ id = null, name }) => {
     const response = await axios({
       method: 'get',
       headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
-      url: `${BASE_URL}/files/download/`,
-      params: { id },
+      url: `${BASE_URL}/files/${id}`,
       responseType: 'blob',
     });
 
@@ -77,5 +75,19 @@ export const downloadFile = async ({ id = null, name }) => {
     }
   } catch (error) {
     alert(error.message);
+  }
+};
+
+export const deleteFile = async ({ id = null }) => {
+  try {
+    const response = await axios({
+      method: 'delete',
+      headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
+      url: `${BASE_URL}/files/${id}`,
+    });
+    alert(response.data.message);
+    return id;
+  } catch (error) {
+    alert(error.response.data.message);
   }
 };

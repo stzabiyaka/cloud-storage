@@ -4,9 +4,9 @@ const { File, User } = require('../../models');
 const { requestError } = require('../../helpers');
 
 const downloadFile = async (req, res) => {
-  const { id } = req.query;
+  const { fileId } = req.params;
   const { _id: owner } = req.user;
-  const file = await File.findOne({ _id: id, owner });
+  const file = await File.findOne({ _id: fileId, owner });
 
   const isFileExist = await fileServices.checkIsExistService(file);
   if (!isFileExist) {

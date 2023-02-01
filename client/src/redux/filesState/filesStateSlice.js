@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchFiles, addFile } from '../operations';
+import { fetchFiles, addFile, deleteFile } from '../operations';
 
 const initialState = {
   files: [],
@@ -54,6 +54,18 @@ const filesStateSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
+    [deleteFile.pending]: state => {
+      state.isLoading = true;
+    },
+    [deleteFile.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.files = [...state.files.filter(file => file._id === action.payload)];
+    },
+    [deleteFile.rejected]: (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
   },
 });
 
@@ -64,5 +76,7 @@ export const selectFiles = state => state.files?.files;
 export const selectCurrentDir = state => state.files.currentDirectory;
 
 export const selectDirectoriesStack = state => state.files.directoriesStack;
+
+export const selectIsFileLoading = state => state.files.isLoading;
 
 export const filesReducer = filesStateSlice.reducer;

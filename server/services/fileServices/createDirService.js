@@ -1,8 +1,8 @@
 const fs = require('fs/promises');
-const path = require('path');
+const { pathResolver } = require('../../helpers');
 
 const createDirService = async ({ owner, filePath }) => {
-  const dirPath = path.join(__dirname, '../../', 'files', `${owner}`, filePath);
+  const dirPath = pathResolver({ owner, filePath });
   try {
     await fs.mkdir(dirPath);
     return 'Directory successfully created';

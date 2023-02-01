@@ -7,7 +7,8 @@ const router = express.Router();
 
 router.get('/', authenticate, controllerWrapper(controller.fetchFiles));
 router.post('/', authenticate, controllerWrapper(controller.createDir));
-router.post('/upload/', authenticate, controllerWrapper(controller.uploadFile));
-router.get('/download/', authenticate, controllerWrapper(controller.downloadFile));
+router.post('/:parentId', authenticate, controllerWrapper(controller.uploadFile));
+router.delete('/:fileId', authenticate, controllerWrapper(controller.deleteFile));
+router.get('/:fileId', authenticate, controllerWrapper(controller.downloadFile));
 
 module.exports = router;

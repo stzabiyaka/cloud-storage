@@ -1,7 +1,7 @@
-const path = require('path');
+const { pathResolver } = require('../../helpers');
 
 const storeFileService = async ({ owner, filePath }, file) => {
-  const storePath = path.join(__dirname, '../../', 'files', `${owner}`, filePath);
+  const storePath = pathResolver({ owner, filePath });
   try {
     await file.mv(storePath);
     return 'File successfully stored';

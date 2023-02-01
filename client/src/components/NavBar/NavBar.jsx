@@ -25,7 +25,7 @@ const NavBar = () => {
             <svg aria-label="Logo" className="navbar__logo">
               <use href={`${icons}#icon-storage`} />
             </svg>
-            <p className="navbar__title">Cloud File Storage</p>
+            <p className="navbar__title">ClouDisk</p>
           </NavLink>
           <ul className="navlinks__list">
             {!isAuth && (

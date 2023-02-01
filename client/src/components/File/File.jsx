@@ -4,6 +4,7 @@ import {
   selectCurrentDir,
   pushDirToStack,
 } from '../../redux/filesState/filesStateSlice';
+import { deleteFile } from '../../redux/operations';
 import { filesAPI } from '../../services/apiService';
 import Button from '../Button/Button';
 import icons from '../../assets/icons/icons.svg';
@@ -29,6 +30,11 @@ const File = ({ id, name, date, size, type, header = false }) => {
     filesAPI.downloadFile({ id, name });
   };
 
+  const handleDelete = event => {
+    event.stopPropagation();
+    dispatch(deleteFile({ id }));
+  };
+
   return (
     <li className={header ? 'file header' : 'file'} onClick={handleFileClick}>
       <div className="file__icon">
@@ -48,9 +54,15 @@ const File = ({ id, name, date, size, type, header = false }) => {
         <p className="file__info">{size}</p>
       </div>
       {isDownloadable && (
-        <div className="file__download">
-          <Button type="button" label="Download" title="Download file" onClick={handleDownload} />
-        </div>
+        <>
+          {' '}
+          <div className="file__download">
+            <Button type="button" label="Download" title="Download file" onClick={handleDownload} />
+          </div>
+          <div className="file__delete">
+            <Button type="button" label="Delete" title="Delete file" onClick={handleDelete} />
+          </div>
+        </>
       )}
     </li>
   );

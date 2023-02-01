@@ -1,4 +1,4 @@
-import ItemsList from '../ItemsList';
+import ItemsList from '../LabelList';
 import icons from '../../assets/icons/icons.svg';
 
 import './FormInput.scss';

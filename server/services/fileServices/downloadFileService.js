@@ -1,7 +1,7 @@
-const path = require('path');
+const { pathResolver } = require('../../helpers');
 
 const downloadFileService = ({ owner, filePath }) => {
-  const downloadPath = path.join(__dirname, '../../', 'files', `${owner}`, filePath);
+  const downloadPath = pathResolver({ owner, filePath });
   return downloadPath;
 };
 

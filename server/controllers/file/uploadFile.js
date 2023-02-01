@@ -4,11 +4,11 @@ const { File, User } = require('../../models');
 const { requestError } = require('../../helpers');
 
 const uploadFile = async (req, res) => {
-  const { parent } = req.body;
+  const { parentId } = req.params;
   const { id, diskSpace, usedSpace } = req.user;
   const { file } = req.files;
 
-  const parentFile = parent ? await File.findOne({ _id: parent, owner: id }) : null;
+  const parentFile = parentId ? await File.findOne({ _id: parentId, owner: id }) : null;
 
   const type = file.name.split('.').pop();
   const { name, size } = file;
@@ -21,7 +21,7 @@ const uploadFile = async (req, res) => {
 
   const filePath = !parentFile ? name : path.join(parentFile.filePath, name);
 
-  const fileData = { name, type, size, filePath, parent, owner: id };
+  const fileData = { name, type, size, filePath, parent: parentId, owner: id };
 
   const isFileExist = await fileServices.checkIsExistService(fileData);
 

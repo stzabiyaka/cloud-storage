@@ -1,8 +1,8 @@
 const fs = require('fs/promises');
-const path = require('path');
+const { pathResolver } = require('../../helpers');
 
 const checkIsExistService = async ({ owner, filePath }) => {
-  const checkPath = path.join(__dirname, '../../', 'files', `${owner}`, filePath);
+  const checkPath = pathResolver({ owner, filePath });
   try {
     await fs.access(checkPath);
     return true;
