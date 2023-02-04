@@ -1,0 +1,39 @@
+@import '../../helpers/styles/constants.scss';
+
+.close__button {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-left: auto;
+
+  cursor: pointer;
+
+  color: $color-secondary;
+
+  background-color: transparent;
+
+  border: 2px solid currentColor;
+
+  border-radius: 50%;
+
+  &:hover,
+  &:focus {
+    color: $color-accent;
+    transform: scale(1.1);
+  }
+
+  &--small {
+    padding: 4px;
+  }
+}
+
+.close__button-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+
+  &--small {
+    width: 8px;
+    height: 8px;
+  }
+}

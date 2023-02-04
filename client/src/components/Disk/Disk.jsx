@@ -12,6 +12,7 @@ import FilesList from '../FilesList';
 import Modal from '../Modal/Modal';
 import CreateDirPopUp from '../CreateDirPopUp';
 import UploadFilePopUp from '../UploadFilePopUp';
+import Uploader from '../Uploader/Uploader';
 
 import './Disk.scss';
 
@@ -62,6 +63,7 @@ const Disk = () => {
         </li>
       </ul>
       <FilesList />
+      <Uploader />
       {showModal && (
         <Modal
           title={showModal === 'dir' ? 'Create new folder' : 'Choose files to uplod'}

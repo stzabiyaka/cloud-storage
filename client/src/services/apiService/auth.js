@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 const LOCAL_STORAGE_KEY = process.env.REACT_APP_LOCAL_STORAGE_KEY;
@@ -10,9 +11,9 @@ export const signUp = async ({ email, password }) => {
       url: `${BASE_URL}/auth/signup`,
       data: { email, password },
     });
-    alert(response.data.message);
+    toast.success(response.data.message);
   } catch (error) {
-    alert(error.response.data.message);
+    toast.error(error.response.data.message);
   }
 };
 
@@ -24,9 +25,10 @@ export const signIn = async ({ email, password }, thunkAPI) => {
       data: { email, password },
     });
     localStorage.setItem(LOCAL_STORAGE_KEY, response.data.token);
+    toast.info(`Welcome, ${email}`);
     return response.data;
   } catch (error) {
-    alert(error.response.data.message);
+    toast.error(error.response.data.message);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };

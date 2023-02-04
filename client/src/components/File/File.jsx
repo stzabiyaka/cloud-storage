@@ -7,6 +7,7 @@ import {
 import { deleteFile } from '../../redux/operations';
 import { filesAPI } from '../../services/apiService';
 import Button from '../Button/Button';
+import ConfirmedButton from '../ConfirmedButton';
 import icons from '../../assets/icons/icons.svg';
 import './File.scss';
 
@@ -30,8 +31,7 @@ const File = ({ id, name, date, size, type, header = false }) => {
     filesAPI.downloadFile({ id, name });
   };
 
-  const handleDelete = event => {
-    event.stopPropagation();
+  const handleDelete = () => {
     dispatch(deleteFile({ id }));
   };
 
@@ -54,15 +54,18 @@ const File = ({ id, name, date, size, type, header = false }) => {
         <p className="file__info">{size}</p>
       </div>
       {isDownloadable && (
-        <>
-          {' '}
-          <div className="file__download">
-            <Button type="button" label="Download" title="Download file" onClick={handleDownload} />
-          </div>
-          <div className="file__delete">
-            <Button type="button" label="Delete" title="Delete file" onClick={handleDelete} />
-          </div>
-        </>
+        <div className="file__download">
+          <Button type="button" label="Download" title="Download file" onClick={handleDownload} />
+        </div>
+      )}
+      {!header && (
+        <div className="file__delete">
+          <ConfirmedButton
+            icon="delete"
+            title={`Delete ${type === 'dir' ? 'folder' : 'file'}`}
+            onClick={handleDelete}
+          />
+        </div>
       )}
     </li>
   );

@@ -1,7 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { addFile } from '../../redux/operations';
-import { selectCurrentDir } from '../../redux/filesState/filesStateSlice';
+import {
+  selectCurrentDir,
+  pushUploadToStack,
+  removeFromUploadsStack,
+  changeUploadsProgress,
+} from '../../redux/filesState/filesStateSlice';
 
 import FormInput from '../FormInput';
 import Button from '../Button/Button';
@@ -17,11 +22,25 @@ const UploadFilePopUp = ({ onSuccess }) => {
   const buttonLabel = `Upload File${files.length > 1 ? 's' : ''}`;
   const fileNames = files.map(({ name }) => name);
 
-  const handleUploadFile = async event => {
+  const pushUpload = ({ id, name, progress }) => {
+    dispatch(pushUploadToStack({ id, name, progress }));
+  };
+
+  const removeUpload = ({ id }) => {
+    dispatch(removeFromUploadsStack({ id }));
+  };
+
+  const changeProgress = ({ id, progress }) => {
+    dispatch(changeUploadsProgress({ id, progress }));
+  };
+
+  const handleUploadFile = event => {
     event.preventDefault();
-    await Promise.allSettled(
-      files.map(async file => dispatch(addFile({ dirId: currentDir, type: 'file', file })))
-    );
+    files.forEach(file => {
+      dispatch(
+        addFile({ dirId: currentDir, type: 'file', file, pushUpload, removeUpload, changeProgress })
+      );
+    });
     onSuccess();
   };
 

@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { nanoid } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 const LOCAL_STORAGE_KEY = process.env.REACT_APP_LOCAL_STORAGE_KEY;
@@ -14,22 +16,28 @@ export const fetchFiles = async ({ dirId }, thunkAPI) => {
     });
     return response.data;
   } catch (error) {
-    alert(error.response.data.message);
+    toast.error(error.response.data.message);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
 
-export const addFile = async ({ dirId, name, type, file }, thunkAPI) => {
+export const addFile = async (
+  { dirId, name, type, file, pushUpload, removeUpload, changeProgress },
+  thunkAPI
+) => {
+  const id = nanoid(6);
   try {
     let data;
     let url = `${BASE_URL}/files/`;
+
+    pushUpload({ id, name, progress: 0 });
 
     switch (type) {
       case 'dir':
         data = { name, type: 'dir', parent: dirId };
         break;
       default:
-        url += dirId;
+        url = dirId ? url + dirId : url;
         const formData = new FormData();
         formData.append('file', file);
         data = formData;
@@ -43,14 +51,17 @@ export const addFile = async ({ dirId, name, type, file }, thunkAPI) => {
       onUploadProgress: progressEvent => {
         const { loaded, total } = progressEvent;
         let percent = Math.floor((loaded * 100) / total);
-        if (percent < 100) {
-          console.log(`${loaded} bytes of ${total} bytes. ${percent}%`);
+        if (percent <= 100) {
+          // console.log(`${loaded} bytes of ${total} bytes. ${percent}%`);
+          changeProgress({ id, progress: percent });
         }
       },
     });
+    removeUpload({ id });
     return response.data;
   } catch (error) {
-    alert(error.response.data.message);
+    toast.error(error.response.data.message);
+    removeUpload({ id });
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
@@ -74,7 +85,7 @@ export const downloadFile = async ({ id = null, name }) => {
       link.remove();
     }
   } catch (error) {
-    alert(error.message);
+    toast.error(error.message);
   }
 };
 
@@ -85,9 +96,9 @@ export const deleteFile = async ({ id = null }) => {
       headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
       url: `${BASE_URL}/files/${id}`,
     });
-    alert(response.data.message);
+    toast.success(response.data.message);
     return id;
   } catch (error) {
-    alert(error.response.data.message);
+    toast.error(error.response.data.message);
   }
 };

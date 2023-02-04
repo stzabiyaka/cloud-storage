@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 const LOCAL_STORAGE_KEY = process.env.REACT_APP_LOCAL_STORAGE_KEY;
@@ -13,7 +14,7 @@ export const getCurrentUser = async (_, thunkAPI) => {
     localStorage.setItem(LOCAL_STORAGE_KEY, response.data.token);
     return response.data;
   } catch (error) {
-    alert(error.response.data.message);
+    toast.error(error.response.data.message);
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
