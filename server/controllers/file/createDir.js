@@ -13,7 +13,7 @@ const createDir = async (req, res) => {
 
   const dirData = { name, type, filePath, parent, owner: id };
 
-  const isDirExist = await fileServices.checkIsExistService(dirData);
+  const isDirExist = await fileServices.checkIsExist(dirData);
 
   if (isDirExist) {
     throw requestError(409, `Directory ${name} already exists.`);
@@ -25,7 +25,7 @@ const createDir = async (req, res) => {
     await File.findByIdAndUpdate({ _id: parentFile._id }, { $push: { children: dir._id } });
   }
 
-  await fileServices.createDirService(dir);
+  await fileServices.createDir(dir);
 
   return res.status(201).json(dir);
 };

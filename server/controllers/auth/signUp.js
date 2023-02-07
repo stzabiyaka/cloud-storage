@@ -18,13 +18,13 @@ const signUp = async (req, res) => {
 
   const dirData = { owner: user._id, filePath: '' };
 
-  const isDirExist = await fileServices.checkIsExistService(dirData);
+  const isDirExist = await fileServices.checkIsExist(dirData);
 
   if (isDirExist) {
     throw requestError(409, `Directory already exists.`);
   }
 
-  await fileServices.createDirService(dirData);
+  await fileServices.createDir(dirData);
 
   return res.status(201).json({ message: 'User successfully created' });
 };

@@ -17,4 +17,75 @@
   &:not(:last-of-type) {
     margin-right: 16px;
   }
+  &:last-of-type {
+    margin-left: auto;
+  }
+}
+
+.sort__selector-label {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding: 8px;
+
+  font-weight: 500;
+  line-height: 1;
+
+  color: $color-secondary;
+
+  background-color: transparent;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+
+  &:hover,
+  &:focus {
+    color: $color-accent;
+  }
+}
+
+.sort__selector {
+  appearance: none;
+  padding: 0 4px;
+  height: fit-content;
+
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: center;
+
+  background-color: $color-secondary;
+  border: 1px solid $color-secondary;
+  border-radius: 4px;
+  color: $background-primary;
+
+  &:not(:last-of-type) {
+    margin-right: 8px;
+  }
+}
+
+.disk__path {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin-bottom: 16px;
+
+  font-size: 1.2rem;
+  font-weight: 500;
+
+  color: $color-secondary;
+
+  cursor: pointer;
+}
+
+.disk__path-folder {
+  &:hover {
+    color: $color-accent;
+  }
+}
+
+.disk__path-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+
+  fill: currentColor;
 }

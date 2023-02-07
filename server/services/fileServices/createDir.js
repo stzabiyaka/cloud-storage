@@ -1,7 +1,7 @@
 const fs = require('fs/promises');
 const { pathResolver } = require('../../helpers');
 
-const createDirService = async ({ owner, filePath }) => {
+const createDir = async ({ owner, filePath }) => {
   const dirPath = pathResolver({ owner, filePath });
   try {
     await fs.mkdir(dirPath);
@@ -11,4 +11,4 @@ const createDirService = async ({ owner, filePath }) => {
   }
 };
 
-module.exports = createDirService;
+module.exports = createDir;

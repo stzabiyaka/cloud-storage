@@ -1,6 +1,6 @@
 const { pathResolver } = require('../../helpers');
 
-const storeFileService = async ({ owner, filePath }, file) => {
+const storeFile = async ({ owner, filePath }, file) => {
   const storePath = pathResolver({ owner, filePath });
   try {
     await file.mv(storePath);
@@ -10,4 +10,4 @@ const storeFileService = async ({ owner, filePath }, file) => {
   }
 };
 
-module.exports = storeFileService;
+module.exports = storeFile;

@@ -11,6 +11,10 @@ export const getCurrentUser = createAsyncThunk('user/getUser', userAPI.getCurren
 
 export const fetchFiles = createAsyncThunk('files/setFiles', filesAPI.fetchFiles);
 
+export const searchFiles = createAsyncThunk('files/setFiles', filesAPI.searchFiles);
+
+export const createDir = createAsyncThunk('files/createDir', filesAPI.createDir);
+
 export const addFile = createAsyncThunk('files/addFile', filesAPI.addFile);
 
 export const deleteFile = createAsyncThunk('files/deleteFile', filesAPI.deleteFile);

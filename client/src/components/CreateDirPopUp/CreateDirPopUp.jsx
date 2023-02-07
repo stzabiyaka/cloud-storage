@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { addFile } from '../../redux/operations';
+import { createDir } from '../../redux/operations';
 import { selectCurrentDir } from '../../redux/filesState/filesStateSlice';
 
 import FormInput from '../FormInput';
@@ -17,7 +17,7 @@ const CreateDirPopUp = ({ onSuccess }) => {
     if (!dirName.trim()) {
       return alert('Folder Name can not be empty.');
     }
-    dispatch(addFile({ dirId: currentDir, name: dirName, type: 'dir' }));
+    dispatch(createDir({ dirId: currentDir, name: dirName, type: 'dir' }));
     onSuccess();
   };
 

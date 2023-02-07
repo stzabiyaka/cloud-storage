@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchFiles, addFile, deleteFile } from '../operations';
+import { fetchFiles, addFile, deleteFile, createDir } from '../operations';
 
 const initialState = {
   files: [],
@@ -43,6 +43,14 @@ const filesStateSlice = createSlice({
     purgeUploadsStack(state) {
       state.uploadsStack = initialState.uploadsStack;
     },
+    unsetFiles(state) {
+      state.files = initialState.files;
+      state.currentDirectory = initialState.currentDirectory;
+      state.directoriesStack = initialState.directoriesStack;
+      state.isLoading = initialState.isLoading;
+      state.error = initialState.error;
+      state.uploadsStack = initialState.uploadsStack;
+    },
   },
 
   extraReducers: {
@@ -58,17 +66,19 @@ const filesStateSlice = createSlice({
       state.error = action.payload;
       state.isLoading = initialState.isLoading;
     },
-    [addFile.pending]: (state, action) => {
-      state.isLoading = true;
+    [createDir.fulfilled]: (state, action) => {
+      state.error = initialState.error;
+      state.files = [...state.files, action.payload];
+    },
+    [createDir.rejected]: (state, action) => {
+      state.error = action.payload;
     },
     [addFile.fulfilled]: (state, action) => {
-      state.isLoading = initialState.isLoading;
       state.error = initialState.error;
       state.files = [...state.files, action.payload];
     },
     [addFile.rejected]: (state, action) => {
       state.error = action.payload;
-      state.isLoading = initialState.isLoading;
     },
     [deleteFile.pending]: state => {
       state.isLoading = true;
@@ -93,6 +103,7 @@ export const {
   removeFromUploadsStack,
   changeUploadsProgress,
   purgeUploadsStack,
+  unsetFiles,
 } = filesStateSlice.actions;
 
 export const selectFiles = state => state.files?.files;

@@ -9,12 +9,12 @@ const deleteFile = async (req, res) => {
 
   const { parent } = file;
 
-  const isFileExist = await fileServices.checkIsExistService(file);
+  const isFileExist = await fileServices.checkIsExist(file);
   if (!isFileExist) {
     throw requestError(404, 'File not found');
   }
 
-  await fileServices.deleteFileService(file);
+  await fileServices.deleteFile(file);
 
   if (parent) {
     await File.findByIdAndUpdate(parent, { $pull: { children: fileId } });

@@ -23,13 +23,13 @@ const uploadFile = async (req, res) => {
 
   const fileData = { name, type, size, filePath, parent: parentId, owner: id };
 
-  const isFileExist = await fileServices.checkIsExistService(fileData);
+  const isFileExist = await fileServices.checkIsExist(fileData);
 
   if (isFileExist) {
     throw requestError(409, `File ${name} already exists in this directory.`);
   }
 
-  await fileServices.storeFileService(fileData, file);
+  await fileServices.storeFile(fileData, file);
 
   const storedFile = await File.create(fileData);
 

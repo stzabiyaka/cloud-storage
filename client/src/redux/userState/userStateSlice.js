@@ -25,6 +25,18 @@ const userSlice = createSlice({
     purgeError(state) {
       state.error = null;
     },
+    increaseUserUsedSpace(state, action) {
+      state.currentUser = {
+        ...state.currentUser,
+        usedSpace: state.currentUser?.usedSpace + action.payload,
+      };
+    },
+    decreaseUserUsedSpace(state, action) {
+      state.currentUser = {
+        ...state.currentUser,
+        usedSpace: state.currentUser?.usedSpace - action.payload,
+      };
+    },
   },
 
   extraReducers: {
@@ -59,11 +71,15 @@ const userSlice = createSlice({
   },
 });
 
-export const { unsetUser, purgeError } = userSlice.actions;
+export const { unsetUser, purgeError, increaseUserUsedSpace, decreaseUserUsedSpace } =
+  userSlice.actions;
 
 export const selectIsAuth = state => state.user.isAuth;
 
 export const selectCurrentUser = state => state.user.currentUser;
+
+export const selectCurrentUserFreeSpace = state =>
+  state.user.currentUser.diskSpace - state.user.currentUser.usedSpace;
 
 export const selectIsLoading = state => state.user.isLoading;
 

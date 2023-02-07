@@ -1,7 +1,7 @@
 const fs = require('fs/promises');
 const { pathResolver } = require('../../helpers');
 
-const checkIsExistService = async ({ owner, filePath }) => {
+const checkIsExist = async ({ owner, filePath }) => {
   const checkPath = pathResolver({ owner, filePath });
   try {
     await fs.access(checkPath);
@@ -11,4 +11,4 @@ const checkIsExistService = async ({ owner, filePath }) => {
   }
 };
 
-module.exports = checkIsExistService;
+module.exports = checkIsExist;

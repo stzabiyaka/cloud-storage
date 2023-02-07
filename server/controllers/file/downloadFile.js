@@ -8,12 +8,12 @@ const downloadFile = async (req, res) => {
   const { _id: owner } = req.user;
   const file = await File.findOne({ _id: fileId, owner });
 
-  const isFileExist = await fileServices.checkIsExistService(file);
+  const isFileExist = await fileServices.checkIsExist(file);
   if (!isFileExist) {
     throw requestError(404, 'File not found');
   }
 
-  const downloadPath = fileServices.downloadFileService(file);
+  const downloadPath = fileServices.downloadFile(file);
 
   return res.status(200).download(downloadPath);
 };

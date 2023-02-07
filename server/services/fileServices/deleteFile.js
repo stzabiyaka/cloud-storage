@@ -1,7 +1,7 @@
 const fs = require('fs/promises');
 const { pathResolver } = require('../../helpers');
 
-const deleteFileService = async ({ owner, type, filePath }) => {
+const deleteFile = async ({ owner, type, filePath }) => {
   const deletePath = pathResolver({ owner, filePath });
 
   if (type === 'dir') {
@@ -13,4 +13,4 @@ const deleteFileService = async ({ owner, type, filePath }) => {
   }
 };
 
-module.exports = deleteFileService;
+module.exports = deleteFile;

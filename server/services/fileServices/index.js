@@ -1,13 +1,13 @@
-const createDirService = require('./createDirService');
-const storeFileService = require('./storeFileService');
-const downloadFileService = require('./downloadFileService');
-const deleteFileService = require('./deleteFileService');
-const checkIsExistService = require('./ckeckIsExistService');
+const createDir = require('./createDir');
+const storeFile = require('./storeFileService');
+const downloadFile = require('./downloadFile');
+const deleteFile = require('./deleteFile');
+const checkIsExist = require('./ckeckIsExist');
 
 module.exports = {
-  createDirService,
-  storeFileService,
-  downloadFileService,
-  deleteFileService,
-  checkIsExistService,
+  createDir,
+  storeFile,
+  downloadFile,
+  deleteFile,
+  checkIsExist,
 };

@@ -43,19 +43,19 @@
 }
 
 .file__date {
-  grid-column-start: 3;
-}
-
-.file__size {
-  grid-column-start: 4;
-}
-
-.file__download {
   grid-column-start: 5;
 }
 
-.file__delete {
+.file__size {
   grid-column-start: 6;
+}
+
+.file__download {
+  grid-column-start: 3;
+}
+
+.file__delete {
+  grid-column-start: 4;
 }
 
 .file__info {

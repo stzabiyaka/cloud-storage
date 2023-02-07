@@ -4,8 +4,10 @@ import {
   selectCurrentDir,
   pushDirToStack,
 } from '../../redux/filesState/filesStateSlice';
+import { decreaseUserUsedSpace } from '../../redux/userState/userStateSlice';
 import { deleteFile } from '../../redux/operations';
 import { filesAPI } from '../../services/apiService';
+import { sizeFormatter } from '../../helpers/functions';
 import Button from '../Button/Button';
 import ConfirmedButton from '../ConfirmedButton';
 import icons from '../../assets/icons/icons.svg';
@@ -22,7 +24,7 @@ const File = ({ id, name, date, size, type, header = false }) => {
     if (type !== 'dir') {
       return;
     }
-    dispatch(pushDirToStack(currentDir));
+    dispatch(pushDirToStack({ parentId: currentDir, name, id }));
     dispatch(setCurrentDir(id));
   };
 
@@ -31,8 +33,12 @@ const File = ({ id, name, date, size, type, header = false }) => {
     filesAPI.downloadFile({ id, name });
   };
 
+  const decreaseUsedSpace = () => {
+    dispatch(decreaseUserUsedSpace(size));
+  };
+
   const handleDelete = () => {
-    dispatch(deleteFile({ id }));
+    dispatch(deleteFile({ id, decreaseUsedSpace }));
   };
 
   return (
@@ -46,12 +52,6 @@ const File = ({ id, name, date, size, type, header = false }) => {
       </div>
       <div className="file__name">
         <p className="file__info">{name}</p>
-      </div>
-      <div className="file__date">
-        <p className="file__info">{date}</p>
-      </div>
-      <div className="file__size">
-        <p className="file__info">{size}</p>
       </div>
       {isDownloadable && (
         <div className="file__download">
@@ -67,6 +67,12 @@ const File = ({ id, name, date, size, type, header = false }) => {
           />
         </div>
       )}
+      <div className="file__date">
+        <p className="file__info">{date}</p>
+      </div>
+      <div className="file__size">
+        <p className="file__info">{typeof size === 'number' ? sizeFormatter(size) : size}</p>
+      </div>
     </li>
   );
 };

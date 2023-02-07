@@ -1,11 +1,14 @@
-import { useSelector } from 'react-redux';
-import { selectFiles } from '../../redux/filesState/filesStateSlice';
+import { useSortedFiles } from '../../hooks';
 import File from '../File';
 
 import './FilesList.scss';
 
 const FilesList = () => {
-  const files = useSelector(selectFiles);
+  const files = useSortedFiles();
+
+  if (!files.length) {
+    return <p className="notification">It looks like there are no files here, yet.</p>;
+  }
 
   return (
     <ul className="files__list">

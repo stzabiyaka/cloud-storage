@@ -7,16 +7,22 @@ import {
   removeFromUploadsStack,
   changeUploadsProgress,
 } from '../../redux/filesState/filesStateSlice';
+import {
+  selectCurrentUserFreeSpace,
+  increaseUserUsedSpace,
+} from '../../redux/userState/userStateSlice';
 
 import FormInput from '../FormInput';
 import Button from '../Button/Button';
 import './UploadFilePopUp.scss';
+import { toast } from 'react-toastify';
 
 const UploadFilePopUp = ({ onSuccess }) => {
   const [files, setFiles] = useState([]);
   const [isDragEnter, setIsDragEnter] = useState(false);
 
   const dispatch = useDispatch();
+  const diskFreeSpace = useSelector(selectCurrentUserFreeSpace);
   const currentDir = useSelector(selectCurrentDir);
 
   const buttonLabel = `Upload File${files.length > 1 ? 's' : ''}`;
@@ -34,11 +40,29 @@ const UploadFilePopUp = ({ onSuccess }) => {
     dispatch(changeUploadsProgress({ id, progress }));
   };
 
+  const increaseUsedSpace = ({ size }) => {
+    dispatch(increaseUserUsedSpace(size));
+  };
+
   const handleUploadFile = event => {
     event.preventDefault();
+    const uploadsSize = files.reduce((accum, file) => accum + file.size, 0);
+
+    if (diskFreeSpace < uploadsSize) {
+      return toast.warning('There is not enough space on your disk.');
+    }
+
     files.forEach(file => {
       dispatch(
-        addFile({ dirId: currentDir, type: 'file', file, pushUpload, removeUpload, changeProgress })
+        addFile({
+          dirId: currentDir,
+          type: 'file',
+          file,
+          pushUpload,
+          removeUpload,
+          changeProgress,
+          increaseUsedSpace,
+        })
       );
     });
     onSuccess();

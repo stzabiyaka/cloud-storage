@@ -1,6 +1,10 @@
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { unsetUser, selectIsAuth } from '../../redux/userState/userStateSlice';
+import { selectCurrentDir } from '../../redux/filesState/filesStateSlice';
+import { searchFiles, fetchFiles } from '../../redux/operations';
+import { unsetFiles } from '../../redux/filesState/filesStateSlice';
 import Button from '../Button/Button';
 import './NavBar.scss';
 import icons from '../../assets/icons/icons.svg';
@@ -8,13 +12,36 @@ import icons from '../../assets/icons/icons.svg';
 const LOCAL_STORAGE_KEY = process.env.REACT_APP_LOCAL_STORAGE_KEY;
 
 const NavBar = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchTimeOut, setSearchTimeOut] = useState(false);
   const isAuth = useSelector(selectIsAuth);
+  const currentDir = useSelector(selectCurrentDir);
 
   const dispatch = useDispatch();
 
   const handleSignOut = () => {
     dispatch(unsetUser());
+    dispatch(unsetFiles());
     localStorage.removeItem(LOCAL_STORAGE_KEY);
+  };
+
+  const handleSearchQueryChange = event => {
+    const query = event.target.value;
+    setSearchQuery(query);
+
+    if (searchTimeOut !== false) {
+      clearTimeout(searchTimeOut);
+    }
+
+    if (query) {
+      setSearchTimeOut(
+        setTimeout(() => {
+          dispatch(searchFiles({ search: query }));
+        }, 500)
+      );
+    } else {
+      dispatch(fetchFiles({ parent: currentDir }));
+    }
   };
 
   return (
@@ -40,6 +67,24 @@ const NavBar = () => {
                 <NavLink to="/signup" className="navlink" title="Please, register">
                   Sign Up
                 </NavLink>
+              </li>
+            )}
+            {isAuth && (
+              <li className="navlinks__list-item">
+                <NavLink to="/files" className="navlink" title="Go to your disk">
+                  Disk
+                </NavLink>
+              </li>
+            )}
+            {isAuth && (
+              <li className="navlinks__list-item">
+                <input
+                  className="search__input"
+                  type="text"
+                  value={searchQuery}
+                  onChange={handleSearchQueryChange}
+                  placeholder="Search file..."
+                />
               </li>
             )}
             {isAuth && (
