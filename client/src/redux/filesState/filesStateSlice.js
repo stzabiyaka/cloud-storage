@@ -8,6 +8,8 @@ const initialState = {
   isLoading: false,
   error: null,
   uploadsStack: [],
+  sort: { param: 'name', direction: 1 },
+  view: 'list',
 };
 
 const filesStateSlice = createSlice({
@@ -50,6 +52,14 @@ const filesStateSlice = createSlice({
       state.isLoading = initialState.isLoading;
       state.error = initialState.error;
       state.uploadsStack = initialState.uploadsStack;
+      state.sort = initialState.sort;
+      state.view = initialState.view;
+    },
+    setSort(state, action) {
+      state.sort = { ...state.sort, ...action.payload };
+    },
+    toggleView(state) {
+      state.view = state.view === 'list' ? 'tile' : 'list';
     },
   },
 
@@ -104,6 +114,8 @@ export const {
   changeUploadsProgress,
   purgeUploadsStack,
   unsetFiles,
+  setSort,
+  toggleView,
 } = filesStateSlice.actions;
 
 export const selectFiles = state => state.files?.files;
@@ -117,5 +129,9 @@ export const selectIsFileLoading = state => state.files.isLoading;
 export const selectUploadStack = state => state.files.uploadsStack;
 
 export const selectShowUploader = state => state.files.uploadsStack.length > 0;
+
+export const selectSort = state => state.files.sort;
+
+export const selectView = state => state.files.view;
 
 export const filesReducer = filesStateSlice.reducer;

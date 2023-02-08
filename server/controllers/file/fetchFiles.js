@@ -2,7 +2,7 @@ const { File } = require('../../models');
 
 const fetchFiles = async (req, res) => {
   const { id } = req.user;
-  const { parent, sort, sortDirection } = req.query;
+  const { parent, sort, sortDirection = 1 } = req.query;
   let sortParam = {};
   switch (sort) {
     case 'name':

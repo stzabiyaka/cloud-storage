@@ -53,10 +53,12 @@ const UploadFilePopUp = ({ onSuccess }) => {
     }
 
     files.forEach(file => {
+      const type = file.type.split('/').shift();
+      console.log(type);
       dispatch(
         addFile({
           dirId: currentDir,
-          type: 'file',
+          type,
           file,
           pushUpload,
           removeUpload,

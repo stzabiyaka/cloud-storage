@@ -5,13 +5,13 @@ import { toast } from 'react-toastify';
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 const LOCAL_STORAGE_KEY = process.env.REACT_APP_LOCAL_STORAGE_KEY;
 
-export const fetchFiles = async ({ parent, sort, sortDirection = 1 }, thunkAPI) => {
+export const fetchFiles = async ({ parent, sort }, thunkAPI) => {
   try {
     const response = await axios({
       method: 'get',
       headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
       url: `${BASE_URL}/files/`,
-      params: { parent, sort, sortDirection },
+      params: { parent, sort: sort.param, sortDirection: sort.direction ?? 1 },
     });
     return response.data;
   } catch (error) {

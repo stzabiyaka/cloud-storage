@@ -1,4 +1,9 @@
 .files__list {
   list-style: none;
   width: 100%;
+
+  &--tile {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }

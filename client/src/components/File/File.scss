@@ -1,45 +1,84 @@
 @import '../../helpers/styles/constants.scss';
 
 .file {
-  display: grid;
-  grid-template-columns: 1fr 4fr repeat(4, 1fr);
-  align-items: center;
-
   color: $color-primary;
 
   &:not(:last-of-type) {
     margin-bottom: 16px;
   }
 
-  &:not(.header):hover {
+  &:hover {
     cursor: pointer;
 
     color: $color-accent;
-
-    // transform: scale(1.01);
   }
 
-  &.header {
+  &--list {
+    display: grid;
+    grid-template-columns: 1fr 4fr repeat(4, 1fr);
+    align-items: center;
+    margin: 16px;
+  }
+
+  &--tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    min-height: 150px;
+  }
+
+  &--header {
     color: $color-secondary;
-
-    // border: 1px solid $color-secondary;
   }
-}
 
-.file__icon {
-  grid-column-start: 1;
-  justify-self: center;
+  &__buttons-container {
+    display: none;
+    list-style: none;
+  }
 
-  &-picture {
-    display: block;
-    width: 36px;
-    height: 36px;
-    fill: currentColor;
+  &:hover &__buttons-container {
+    display: flex;
+  }
+
+  &__icon {
+    &--list {
+      grid-column-start: 1;
+      justify-self: center;
+    }
+
+    &--tile {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 8px;
+    }
+
+    &-picture {
+      display: block;
+      fill: currentColor;
+
+      &--list {
+        width: 36px;
+        height: 36px;
+      }
+
+      &--tile {
+        width: 100px;
+        height: 100px;
+      }
+    }
   }
 }
 
 .file__name {
-  grid-column-start: 2;
+  &--list {
+    grid-column-start: 2;
+  }
+
+  &--tile {
+    display: block;
+    margin-bottom: 8px;
+  }
 }
 
 .file__date {
@@ -51,7 +90,13 @@
 }
 
 .file__download {
-  grid-column-start: 3;
+  &--list {
+    grid-column-start: 3;
+  }
+
+  &--tile {
+    margin-right: 16px;
+  }
 }
 
 .file__delete {

@@ -4,8 +4,11 @@ import {
   selectCurrentDir,
   selectDirectoriesStack,
   selectIsFileLoading,
+  selectSort,
+  selectView,
   setCurrentDir,
   setDirStack,
+  toggleView,
 } from '../../redux/filesState/filesStateSlice';
 import { selectCurrentUserFreeSpace } from '../../redux/userState/userStateSlice';
 import { fetchFiles } from '../../redux/operations';
@@ -15,26 +18,27 @@ import FilesList from '../FilesList';
 import Modal from '../Modal/Modal';
 import CreateDirPopUp from '../CreateDirPopUp';
 import UploadFilePopUp from '../UploadFilePopUp';
-import Uploader from '../Uploader/Uploader';
+import Uploader from '../Uploader';
+import Breadcrumbs from '../Breadcrumbs';
+import SortSelect from '../SortSelect/SortSelect';
 import Loader from '../Loader/Loader';
-import icons from '../../assets/icons/icons.svg';
 
 import './Disk.scss';
 
 const Disk = () => {
   const [showModal, setShowModal] = useState(null);
-  const [sortParam, setSortParam] = useState('name');
-  const [sortDirection, setSortDirection] = useState(1);
 
   const dispatch = useDispatch();
   const diskFreeSpace = useSelector(selectCurrentUserFreeSpace);
   const isLoading = useSelector(selectIsFileLoading);
   const currentDir = useSelector(selectCurrentDir);
   const dirStack = [...useSelector(selectDirectoriesStack)];
+  const sort = useSelector(selectSort);
+  const view = useSelector(selectView);
 
   useEffect(() => {
-    dispatch(fetchFiles({ parent: currentDir, sort: sortParam, sortDirection }));
-  }, [currentDir, dispatch, sortParam, sortDirection]);
+    dispatch(fetchFiles({ parent: currentDir, sort }));
+  }, [currentDir, dispatch, sort]);
 
   const handleClickBackBtn = () => {
     const backDirId = dirStack.pop();
@@ -42,13 +46,8 @@ const Disk = () => {
     dispatch(setDirStack(dirStack));
   };
 
-  const handleClickPath = ({ dirId }) => {
-    if (dirId === currentDir) {
-      return;
-    }
-    const indx = dirStack.findIndex(({ id }) => id === dirId) + 1;
-    dispatch(setDirStack(dirStack.slice(0, indx)));
-    dispatch(setCurrentDir(dirId));
+  const handleClickViewBtn = () => {
+    dispatch(toggleView());
   };
 
   return (
@@ -80,69 +79,21 @@ const Disk = () => {
           />
         </li>
         <li className="disk__controls-item">
-          <label className="sort__selector-label">
-            Sort by:&nbsp;
-            <select
-              name="sort-parameter"
-              id="sort-parameter"
-              value={sortParam}
-              className="sort__selector"
-              onChange={event => setSortParam(event.target.value)}
-              title="Select sort parameter"
-            >
-              <option value="name" className="sort__selector-option" title="Sort by file name">
-                name
-              </option>
-              <option value="type" className="sort__selector-option" title="Sort by file type">
-                type
-              </option>
-              <option
-                value="date"
-                className="sort__selector-option"
-                title="Sort by file creation date"
-              >
-                date
-              </option>
-            </select>
-            <select
-              name="sort-direction"
-              id="sort-direction"
-              value={sortDirection}
-              className="sort__selector"
-              onChange={event => setSortDirection(event.target.value)}
-              title="Select sort direction"
-            >
-              <option value="1" className="sort__selector-option" title="Ascending">
-                &#x2C4;
-              </option>
-              <option value="-1" className="sort__selector-option" title="Descending">
-                &#x2C5;
-              </option>
-            </select>
-          </label>
+          <SortSelect />
+        </li>
+        <li className="disk__controls-item">
+          <Button
+            title={`View as ${view === 'list' ? 'tile' : 'list'}`}
+            icon={view}
+            type="button"
+            onClick={handleClickViewBtn}
+          />
         </li>
       </ul>
       <div className="disk__dashboard">
         <div className="disk__dashboard-space">Disk free space: {sizeFormatter(diskFreeSpace)}</div>
       </div>
-      <ul className="disk__path">
-        <li
-          className="disk__path-folder"
-          key="root-folder"
-          onClick={() => handleClickPath({ dirId: null })}
-        >
-          <svg className="disk__path-icon">
-            <use href={`${icons}#icon-storage`} />
-          </svg>
-        </li>
-        {dirStack.map(({ name, id }) => (
-          <li
-            className="disk__path-folder"
-            key={id}
-            onClick={() => handleClickPath({ dirId: id })}
-          >{` / ${name}`}</li>
-        ))}
-      </ul>
+      <Breadcrumbs />
       {isLoading && <Loader />}
       {!isLoading && <FilesList />}
       <Uploader />

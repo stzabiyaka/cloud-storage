@@ -13,6 +13,8 @@
 
 # misc
 /config
+/files
+
 .DS_Store
 .env
 .env.local
