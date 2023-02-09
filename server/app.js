@@ -5,7 +5,7 @@ const path = require('path');
 const fileUpload = require('express-fileupload');
 const authRouter = require('./routes/auth.routes');
 const userRouter = require('./routes/user.routes');
-const fileRouter = require('./routes/file.routes');
+const fileRouter = require('./routes/files.routes');
 
 const app = express();
 

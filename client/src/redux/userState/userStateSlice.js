@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { signInUser, getCurrentUser } from '../operations';
+import { signInUser, getCurrentUser, updateUserAvatar, deleteUserAvatar } from '../operations';
 
 const initialState = {
   currentUser: {},
@@ -46,7 +46,7 @@ const userSlice = createSlice({
     [signInUser.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.error = null;
-      state.currentUser = action.payload?.user;
+      state.currentUser = action.payload.user;
       state.authToken = action.payload?.token;
       state.isAuth = true;
     },
@@ -60,13 +60,27 @@ const userSlice = createSlice({
     [getCurrentUser.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.error = null;
-      state.currentUser = action.payload?.user;
-      state.authToken = action.payload?.token;
+      state.currentUser = { ...state.currentUser, ...action.payload.user };
+      state.authToken = action.payload.token;
       state.isAuth = true;
     },
     [getCurrentUser.rejected]: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
+    },
+    [updateUserAvatar.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.currentUser = { ...state.currentUser, ...action.payload.user };
+      state.authToken = action.payload.token;
+      state.isAuth = true;
+    },
+    [deleteUserAvatar.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.currentUser = { ...state.currentUser, ...action.payload.user };
+      state.authToken = action.payload.token;
+      state.isAuth = true;
     },
   },
 });

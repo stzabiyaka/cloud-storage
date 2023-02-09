@@ -3,12 +3,12 @@ const { handleDBSaveError } = require('../helpers');
 
 const userSchema = new Schema(
   {
+    name: { type: String, default: 'User' },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     diskSpace: { type: Number, default: 1024 ** 3 * 2 },
     usedSpace: { type: Number, default: 0 },
     avatarURL: { type: String, default: null },
-    files: [{ type: Schema.Types.ObjectId, ref: 'File' }],
   },
   { versionKey: false, timestamps: true }
 );

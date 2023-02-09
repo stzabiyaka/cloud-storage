@@ -4,7 +4,7 @@ const { requestError } = require('../../helpers');
 const fileServices = require('../../services/fileServices');
 
 const signUp = async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
   const isUserExist = await User.findOne({ email });
 
@@ -14,7 +14,7 @@ const signUp = async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const user = await User.create({ email, password: hashedPassword });
+  const user = await User.create({ name, email, password: hashedPassword });
 
   const dirData = { owner: user._id, filePath: '' };
 

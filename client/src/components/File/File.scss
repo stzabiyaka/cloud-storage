@@ -7,12 +7,6 @@
     margin-bottom: 16px;
   }
 
-  &:hover {
-    cursor: pointer;
-
-    color: $color-accent;
-  }
-
   &--list {
     display: grid;
     grid-template-columns: 1fr 4fr repeat(4, 1fr);
@@ -30,6 +24,14 @@
 
   &--header {
     color: $color-secondary;
+  }
+
+  &--folder {
+    cursor: pointer;
+
+    &:hover {
+      color: $color-accent;
+    }
   }
 
   &__buttons-container {
@@ -82,16 +84,16 @@
 }
 
 .file__date {
-  grid-column-start: 5;
+  grid-column-start: 3;
 }
 
 .file__size {
-  grid-column-start: 6;
+  grid-column-start: 4;
 }
 
 .file__download {
   &--list {
-    grid-column-start: 3;
+    grid-column-start: 5;
   }
 
   &--tile {
@@ -100,7 +102,7 @@
 }
 
 .file__delete {
-  grid-column-start: 4;
+  grid-column-start: 6;
 }
 
 .file__info {

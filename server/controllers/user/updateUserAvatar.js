@@ -7,11 +7,25 @@ const updateUserAvatar = async (req, res) => {
     avatar: { data },
   } = req.files;
 
+  const user = await User.findById(owner);
+
+  if (user.avatarURL) {
+    await userServices.deleteUserAvatar({ avatarURL: user.avatarURL });
+  }
+
   const avatarURL = await userServices.storeUserAvatar({ owner, data });
 
-  const user = await User.findByIdAndUpdate(owner, { avatarURL }, { new: true });
+  const updatedUser = await User.findByIdAndUpdate(owner, { avatarURL }, { new: true });
 
-  res.status(200).json(user);
+  res.status(200).json({
+    user: {
+      name: updatedUser.name,
+      email: updatedUser.email,
+      diskSpace: updatedUser.diskSpace,
+      usedSpace: updatedUser.usedSpace,
+      avatarURL: updatedUser.avatarURL,
+    },
+  });
 };
 
 module.exports = updateUserAvatar;

@@ -1,14 +1,12 @@
-const { validationResult } = require('express-validator');
 const { requestError } = require('../helpers');
 
-const validateBody = () => {
+const validateBody = schema => {
   const func = (req, res, next) => {
-    const errors = validationResult(req);
+    const payload = req.body;
+    const { error } = schema.validate(payload);
 
-    if (!errors.isEmpty()) {
-      const message = errors.errors.map(error => error.msg).join(' ');
-
-      next(requestError(400, message));
+    if (error) {
+      next(requestError(400, error.message));
     }
     next();
   };

@@ -4,12 +4,12 @@ import { toast } from 'react-toastify';
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 const LOCAL_STORAGE_KEY = process.env.REACT_APP_LOCAL_STORAGE_KEY;
 
-export const signUp = async ({ email, password }) => {
+export const signUp = async ({ name, email, password }) => {
   try {
     const response = await axios({
       method: 'post',
       url: `${BASE_URL}/auth/signup`,
-      data: { email, password },
+      data: { name, email, password },
     });
     toast.success(response.data.message);
   } catch (error) {
@@ -25,7 +25,6 @@ export const signIn = async ({ email, password }, thunkAPI) => {
       data: { email, password },
     });
     localStorage.setItem(LOCAL_STORAGE_KEY, response.data.token);
-    toast.info(`Welcome, ${email}`);
     return response.data;
   } catch (error) {
     toast.error(error.response.data.message);

@@ -19,3 +19,40 @@ export const getCurrentUser = async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
+
+export const updateUserAvatar = async ({ file }, thunkAPI) => {
+  try {
+    let url = `${BASE_URL}/users/avatar/`;
+
+    const formData = new FormData();
+    formData.append('avatar', file);
+    const data = formData;
+
+    const response = await axios({
+      method: 'patch',
+      headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
+      url,
+      data,
+    });
+    return response.data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+};
+
+export const deleteUserAvatar = async (_, thunkAPI) => {
+  try {
+    let url = `${BASE_URL}/users/avatar/`;
+
+    const response = await axios({
+      method: 'delete',
+      headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
+      url,
+    });
+    return response.data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+};

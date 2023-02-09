@@ -17,6 +17,7 @@ const getCurrentUser = async (req, res) => {
   return res.status(200).json({
     token,
     user: {
+      name: user.name,
       email: user.email,
       diskSpace: user.diskSpace,
       usedSpace: user.usedSpace,

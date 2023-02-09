@@ -5,7 +5,11 @@ import { authAPI, userAPI, filesAPI } from '../services/apiService';
 
 export const signInUser = createAsyncThunk('user/setUser', authAPI.signIn);
 
-export const getCurrentUser = createAsyncThunk('user/getUser', userAPI.getCurrentUser);
+export const getCurrentUser = createAsyncThunk('user/setUser', userAPI.getCurrentUser);
+
+export const updateUserAvatar = createAsyncThunk('user/setUser', userAPI.updateUserAvatar);
+
+export const deleteUserAvatar = createAsyncThunk('user/setUser', userAPI.deleteUserAvatar);
 
 // FILES //
 

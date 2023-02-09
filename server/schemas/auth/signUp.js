@@ -1,13 +1,13 @@
-const { check } = require('express-validator');
+const joi = require('joi');
 
-const signUpSchema = [
-  check('email').isEmail().withMessage('Incorrect email provided.'),
-  check('password')
-    .isLength({
-      min: 4,
-      max: 12,
-    })
-    .withMessage('Password length must be longer than 3 and shorter then 13 symbols.'),
-];
-
+const signUpSchema = joi.object({
+  name: joi.string(),
+  email: joi.string().email({ minDomainSegments: 2, maxDomainSegments: 4 }).required().messages({
+    'string.email': `{{#label}} must be a valid email`,
+    'any.required': `missing required field: {{#label}}`,
+  }),
+  password: joi.string().required().min(4).max(12).messages({
+    'any.required': `missing required field: {{#label}}`,
+  }),
+});
 module.exports = signUpSchema;

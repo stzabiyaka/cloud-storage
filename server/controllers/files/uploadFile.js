@@ -4,7 +4,7 @@ const { File, User } = require('../../models');
 const { requestError } = require('../../helpers');
 
 const uploadFile = async (req, res) => {
-  const { parentId } = req.params;
+  const parentId = req.params.parentId !== 'root' ? req.params.parentId : null;
   const { id, diskSpace, usedSpace } = req.user;
   const { file } = req.files;
 
@@ -32,10 +32,6 @@ const uploadFile = async (req, res) => {
   await fileServices.storeFile(fileData, file);
 
   const storedFile = await File.create(fileData);
-
-  if (parentFile) {
-    await File.findByIdAndUpdate({ _id: parentFile._id }, { $push: { children: storedFile._id } });
-  }
 
   await User.findByIdAndUpdate({ _id: id }, { usedSpace: updatedUsedSpace });
 

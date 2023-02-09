@@ -9,6 +9,10 @@
   color: $color-secondary;
 
   background-color: $background-secondary;
+
+  &__content {
+    display: flex;
+  }
 }
 
 .navbar__logo {
@@ -33,6 +37,7 @@
   align-items: center;
   width: 100%;
   height: fit-content;
+  margin-right: 32px;
 }
 
 .logo__link {

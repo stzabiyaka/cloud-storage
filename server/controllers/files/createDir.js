@@ -21,10 +21,6 @@ const createDir = async (req, res) => {
 
   const dir = await File.create(dirData);
 
-  if (parentFile) {
-    await File.findByIdAndUpdate({ _id: parentFile._id }, { $push: { children: dir._id } });
-  }
-
   await fileServices.createDir(dir);
 
   return res.status(201).json(dir);

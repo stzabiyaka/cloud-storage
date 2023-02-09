@@ -4,11 +4,23 @@ const { User } = require('../../models');
 const updateUserAvatar = async (req, res) => {
   const { _id: owner } = req.user;
 
-  const message = await userServices.deleteUserAvatar({ owner });
+  const user = await User.findById(owner);
 
-  const user = await User.findByIdAndUpdate(owner, { avatarURL: null }, { new: true });
+  if (user.avatarURL) {
+    await userServices.deleteUserAvatar({ avatarURL: user.avatarURL });
+  }
 
-  res.status(200).json(user);
+  const updatedUser = await User.findByIdAndUpdate(owner, { avatarURL: null }, { new: true });
+
+  res.status(200).json({
+    user: {
+      name: updatedUser.name,
+      email: updatedUser.email,
+      diskSpace: updatedUser.diskSpace,
+      usedSpace: updatedUser.usedSpace,
+      avatarURL: updatedUser.avatarURL,
+    },
+  });
 };
 
 module.exports = updateUserAvatar;

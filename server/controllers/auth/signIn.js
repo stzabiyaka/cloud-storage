@@ -27,10 +27,11 @@ const signIn = async (req, res) => {
   return res.status(200).json({
     token,
     user: {
+      name: user.name,
       email: user.email,
       diskSpace: user.diskSpace,
       usedSpace: user.usedSpace,
-      avatar: user.avatar,
+      avatarURL: user.avatarURL,
     },
   });
 };

@@ -17,7 +17,9 @@
 
 .section__title {
   display: block;
-  text-align: center;
+  font-size: 3rem;
+
+  color: $background-secondary;
 }
 
 .visually-hidden {

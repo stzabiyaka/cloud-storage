@@ -8,6 +8,7 @@ import Button from '../Button/Button';
 import './SignForm.scss';
 
 const SignForm = ({ action }) => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,7 +26,7 @@ const SignForm = ({ action }) => {
         break;
 
       case 'signup':
-        authAPI.signUp({ email, password });
+        authAPI.signUp({ name, email, password });
         navigate('/signin', { replace: true });
         break;
       default:
@@ -36,6 +37,7 @@ const SignForm = ({ action }) => {
   return (
     <form className="form" onSubmit={handleSubmit}>
       <h2 className="form__title">{title}</h2>
+      {action === 'signup' && <FormInput value={name} setValue={setName} type="name" name="name" />}
       <FormInput value={email} setValue={setEmail} type="email" name="email" />
       <FormInput value={password} setValue={setPassword} type="password" name="password" />
       <Button
@@ -44,6 +46,7 @@ const SignForm = ({ action }) => {
         label={isSignIn ? 'Sign In' : 'Sign Up'}
         mb="32px"
         mt="32px"
+        disabled={action === 'signup' ? !name || !email || !password : !email || !password}
       />
       <p className="form__notification">
         {`If you ${!isSignIn ? 'already have an' : 'do not have an'} account, please `}

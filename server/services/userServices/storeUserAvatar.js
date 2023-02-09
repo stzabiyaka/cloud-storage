@@ -8,7 +8,7 @@ const avatarSize = 250;
 const storeUserAvatar = async ({ owner, data }) => {
   try {
     const avatarExtension = 'jpg';
-    const avatarName = `${owner}.${avatarExtension}`;
+    const avatarName = `${owner}-${Date.now()}.${avatarExtension}`;
     const avatarUpload = path.join(avatarsDir, avatarName);
     const image = await jimp.read(data);
     await image.cover(avatarSize, avatarSize).write(avatarUpload);

@@ -1,0 +1,11 @@
+@import '../../helpers/styles/constants.scss';
+
+.avatar {
+  display: block;
+
+  color: $color-secondary;
+
+  fill: currentColor;
+
+  border-radius: 50%;
+}

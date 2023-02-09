@@ -54,27 +54,18 @@ export const createDir = async ({ dirId, name, type }, thunkAPI) => {
 };
 
 export const addFile = async (
-  { dirId, name, type, file, pushUpload, removeUpload, changeProgress, increaseUsedSpace },
+  { dirId, name, file, pushUpload, removeUpload, changeProgress, increaseUsedSpace },
   thunkAPI
 ) => {
   const id = nanoid(6);
   try {
-    let data;
-    let url = `${BASE_URL}/files/`;
+    let url = `${BASE_URL}/files/${dirId ? dirId : 'root'}`;
 
     pushUpload({ id, name, progress: 0 });
 
-    switch (type) {
-      case 'dir':
-        data = { name, type: 'dir', parent: dirId };
-        url = dirId ? url + 'dirs/' + dirId : url + 'dirs/';
-        break;
-      default:
-        url = dirId ? url + dirId : url;
-        const formData = new FormData();
-        formData.append('file', file);
-        data = formData;
-    }
+    const formData = new FormData();
+    formData.append('file', file);
+    const data = formData;
 
     const response = await axios({
       method: 'post',
@@ -84,10 +75,7 @@ export const addFile = async (
       onUploadProgress: progressEvent => {
         const { loaded, total } = progressEvent;
         let percent = Math.floor((loaded * 100) / total);
-        // if (percent <= 100) {
-        // console.log(`${loaded} bytes of ${total} bytes. ${percent}%`);
         changeProgress({ id, progress: percent });
-        // }
       },
     });
     removeUpload({ id });

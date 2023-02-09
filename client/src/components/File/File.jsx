@@ -46,7 +46,13 @@ const File = ({ id, name, date, size, type, header = false }) => {
   };
 
   return (
-    <li className={`file file--${view}${header ? ' file--header' : ''}`} onClick={handleFileClick}>
+    <li
+      className={`file file--${view}${header ? ' file--header' : ''}${
+        type === 'dir' ? ' file--folder' : ''
+      }`}
+      onClick={handleFileClick}
+      title={type === 'dir' ? `Click to open folder ${name}` : name}
+    >
       <div className={`file__icon file__icon--${view}`}>
         {!header && (
           <svg className={`file__icon-picture file__icon-picture--${view}`}>
@@ -55,9 +61,7 @@ const File = ({ id, name, date, size, type, header = false }) => {
         )}
       </div>
       <div className={`file__name file__name--${view}`}>
-        <p className="file__info" title={name}>
-          {normalizedName}
-        </p>
+        <p className="file__info">{normalizedName}</p>
       </div>
       {view === 'tile' && (
         <ul className="file__buttons-container">
@@ -82,6 +86,12 @@ const File = ({ id, name, date, size, type, header = false }) => {
       )}
       {view === 'list' && (
         <>
+          <div className="file__date">
+            <p className="file__info">{date}</p>
+          </div>
+          <div className="file__size">
+            <p className="file__info">{typeof size === 'number' ? sizeFormatter(size) : size}</p>
+          </div>
           {isDownloadable && (
             <div className="file__download file__download--list">
               <Button
@@ -101,12 +111,6 @@ const File = ({ id, name, date, size, type, header = false }) => {
               />
             </div>
           )}
-          <div className="file__date">
-            <p className="file__info">{date}</p>
-          </div>
-          <div className="file__size">
-            <p className="file__info">{typeof size === 'number' ? sizeFormatter(size) : size}</p>
-          </div>
         </>
       )}
     </li>

@@ -1,15 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { unsetUser, selectIsAuth } from '../../redux/userState/userStateSlice';
+import { selectIsAuth } from '../../redux/userState/userStateSlice';
 import { selectCurrentDir } from '../../redux/filesState/filesStateSlice';
 import { searchFiles, fetchFiles } from '../../redux/operations';
-import { unsetFiles } from '../../redux/filesState/filesStateSlice';
-import Button from '../Button/Button';
+import UserMenu from '../UserMenu';
 import './NavBar.scss';
 import icons from '../../assets/icons/icons.svg';
-
-const LOCAL_STORAGE_KEY = process.env.REACT_APP_LOCAL_STORAGE_KEY;
 
 const NavBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -18,12 +15,6 @@ const NavBar = () => {
   const currentDir = useSelector(selectCurrentDir);
 
   const dispatch = useDispatch();
-
-  const handleSignOut = () => {
-    dispatch(unsetUser());
-    dispatch(unsetFiles());
-    localStorage.removeItem(LOCAL_STORAGE_KEY);
-  };
 
   const handleSearchQueryChange = event => {
     const query = event.target.value;
@@ -47,53 +38,51 @@ const NavBar = () => {
   return (
     <header className="navbar">
       <div className="container container--navbar">
-        <nav className="nav">
-          <NavLink to="/" className="logo__link">
-            <svg aria-label="Logo" className="navbar__logo">
-              <use href={`${icons}#icon-storage`} />
-            </svg>
-            <p className="navbar__title">ClouDisk</p>
-          </NavLink>
-          <ul className="navlinks__list">
-            {!isAuth && (
-              <li className="navlinks__list-item">
-                <NavLink to="/signin" className="navlink" title="Please, log in">
-                  Sign In
-                </NavLink>
-              </li>
-            )}
-            {!isAuth && (
-              <li className="navlinks__list-item">
-                <NavLink to="/signup" className="navlink" title="Please, register">
-                  Sign Up
-                </NavLink>
-              </li>
-            )}
-            {isAuth && (
-              <li className="navlinks__list-item">
-                <NavLink to="/files" className="navlink" title="Go to your disk">
-                  Disk
-                </NavLink>
-              </li>
-            )}
-            {isAuth && (
-              <li className="navlinks__list-item">
-                <input
-                  className="search__input"
-                  type="text"
-                  value={searchQuery}
-                  onChange={handleSearchQueryChange}
-                  placeholder="Search file..."
-                />
-              </li>
-            )}
-            {isAuth && (
-              <li className="navlinks__list-item">
-                <Button type="button" title="Sign Out" label="Sign Out" onClick={handleSignOut} />
-              </li>
-            )}
-          </ul>
-        </nav>
+        <div className="navbar__content">
+          <nav className="nav">
+            <NavLink to="/" className="logo__link">
+              <svg aria-label="Logo" className="navbar__logo">
+                <use href={`${icons}#icon-storage`} />
+              </svg>
+              <p className="navbar__title">ClouDisk</p>
+            </NavLink>
+            <ul className="navlinks__list">
+              {!isAuth && (
+                <li className="navlinks__list-item">
+                  <NavLink to="/signin" className="navlink" title="Please, log in">
+                    Sign In
+                  </NavLink>
+                </li>
+              )}
+              {!isAuth && (
+                <li className="navlinks__list-item">
+                  <NavLink to="/signup" className="navlink" title="Please, register">
+                    Sign Up
+                  </NavLink>
+                </li>
+              )}
+              {isAuth && (
+                <>
+                  <li className="navlinks__list-item">
+                    <NavLink to="/files" className="navlink" title="Go to your disk">
+                      Disk
+                    </NavLink>
+                  </li>
+                  <li className="navlinks__list-item">
+                    <input
+                      className="search__input"
+                      type="text"
+                      value={searchQuery}
+                      onChange={handleSearchQueryChange}
+                      placeholder="Search file..."
+                    />
+                  </li>
+                </>
+              )}
+            </ul>
+          </nav>
+          {isAuth && <UserMenu />}
+        </div>
       </div>
     </header>
   );

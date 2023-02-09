@@ -46,19 +46,16 @@ const UploadFilePopUp = ({ onSuccess }) => {
 
   const handleUploadFile = event => {
     event.preventDefault();
-    const uploadsSize = files.reduce((accum, file) => accum + file.size, 0);
+    const uploadsSize = files.reduce((size, file) => size + file.size, 0);
 
     if (diskFreeSpace < uploadsSize) {
-      return toast.warning('There is not enough space on your disk.');
+      return toast.warning('There is not enough space on the disk.');
     }
 
     files.forEach(file => {
-      const type = file.type.split('/').shift();
-      console.log(type);
       dispatch(
         addFile({
           dirId: currentDir,
-          type,
           file,
           pushUpload,
           removeUpload,

@@ -10,7 +10,6 @@ const fileSchema = new Schema(
     size: { type: Number, default: 0 },
     owner: { type: Schema.Types.ObjectId, ref: 'User' },
     parent: { type: Schema.Types.ObjectId, ref: 'File' },
-    children: [{ type: Schema.Types.ObjectId, ref: 'File' }],
   },
   { versionKey: false, timestamps: true }
 );
