@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSort, setSort } from '../../redux/filesState/filesStateSlice';
+import icons from '../../assets/icons/icons.svg';
 import './SortSelect.scss';
 
 const SortSelect = () => {
@@ -9,13 +10,13 @@ const SortSelect = () => {
   const handleParamChange = event => {
     dispatch(setSort({ param: event.target.value }));
   };
-  const handleDirectionChange = event => {
-    dispatch(setSort({ direction: event.target.value }));
+  const toggleDirection = () => {
+    dispatch(setSort({ direction: direction * -1 }));
   };
 
   return (
-    <label className="sort__selector-label">
-      Sort by:&nbsp;
+    <div className="sort__selector-label">
+      <p className="sort__selector-title">Sort by:&nbsp;</p>
       <select
         name="sort-parameter"
         id="sort-parameter"
@@ -34,22 +35,17 @@ const SortSelect = () => {
           date
         </option>
       </select>
-      <select
-        name="sort-direction"
-        id="sort-direction"
-        value={direction}
-        className="sort__selector"
-        onChange={handleDirectionChange}
-        title="Select sort direction"
+      <button
+        className="sort__button"
+        type="button"
+        title="Toggle sort direction"
+        onClick={toggleDirection}
       >
-        <option value="1" className="sort__selector-option" title="Ascending">
-          &#x2C4;
-        </option>
-        <option value="-1" className="sort__selector-option" title="Descending">
-          &#x2C5;
-        </option>
-      </select>
-    </label>
+        <svg className="sort__button-icon" aria-label="Toggle sort direction icon">
+          <use href={`${icons}#icon-sort-${direction === 1 ? 'descending' : 'ascending'}`} />
+        </svg>
+      </button>
+    </div>
   );
 };
 

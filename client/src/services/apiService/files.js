@@ -3,15 +3,16 @@ import { nanoid } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
-const LOCAL_STORAGE_KEY = process.env.REACT_APP_LOCAL_STORAGE_KEY;
 
-export const fetchFiles = async ({ parent, sort }, thunkAPI) => {
+export const fetchFiles = async (_, thunkAPI) => {
   try {
+    const { authToken } = thunkAPI.getState().user;
+    const { sort, currentDirectory } = thunkAPI.getState().files;
     const response = await axios({
       method: 'get',
-      headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
+      headers: { Authorization: `Bearer ${authToken}` },
       url: `${BASE_URL}/files/`,
-      params: { parent, sort: sort.param, sortDirection: sort.direction ?? 1 },
+      params: { parent: currentDirectory, sort: sort.param, sortDirection: sort.direction ?? 1 },
     });
     return response.data;
   } catch (error) {
@@ -22,9 +23,10 @@ export const fetchFiles = async ({ parent, sort }, thunkAPI) => {
 
 export const searchFiles = async ({ search }, thunkAPI) => {
   try {
+    const { authToken } = thunkAPI.getState().user;
     const response = await axios({
       method: 'get',
-      headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
+      headers: { Authorization: `Bearer ${authToken}` },
       url: `${BASE_URL}/files/search/`,
       params: { search },
     });
@@ -35,15 +37,16 @@ export const searchFiles = async ({ search }, thunkAPI) => {
   }
 };
 
-export const createDir = async ({ dirId, name, type }, thunkAPI) => {
+export const createDir = async ({ name }, thunkAPI) => {
   try {
-    const data = { name, type, parent: dirId };
-    let url = `${BASE_URL}/files/dirs/`;
+    const { authToken } = thunkAPI.getState().user;
+    const { currentDirectory } = thunkAPI.getState().files;
+    const data = { name, type: 'dir', parent: currentDirectory };
 
     const response = await axios({
       method: 'post',
-      headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
-      url,
+      headers: { Authorization: `Bearer ${authToken}` },
+      url: `${BASE_URL}/files/dirs/`,
       data,
     });
     return response.data;
@@ -53,15 +56,16 @@ export const createDir = async ({ dirId, name, type }, thunkAPI) => {
   }
 };
 
-export const addFile = async (
-  { dirId, name, file, pushUpload, removeUpload, changeProgress, increaseUsedSpace },
+export const uploadFile = async (
+  { file, pushUploadToStack, removeFromUploadsStack, changeUploadsProgress, increaseUserUsedSpace },
   thunkAPI
 ) => {
+  const { authToken } = thunkAPI.getState().user;
+  const { currentDirectory } = thunkAPI.getState().files;
+  const { name } = file;
   const id = nanoid(6);
   try {
-    let url = `${BASE_URL}/files/${dirId ? dirId : 'root'}`;
-
-    pushUpload({ id, name, progress: 0 });
+    thunkAPI.dispatch(pushUploadToStack({ id, name, progress: 0 }));
 
     const formData = new FormData();
     formData.append('file', file);
@@ -69,30 +73,31 @@ export const addFile = async (
 
     const response = await axios({
       method: 'post',
-      headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
-      url,
+      headers: { Authorization: `Bearer ${authToken}` },
+      url: `${BASE_URL}/files/${currentDirectory ? currentDirectory : 'root'}`,
       data,
       onUploadProgress: progressEvent => {
         const { loaded, total } = progressEvent;
         let percent = Math.floor((loaded * 100) / total);
-        changeProgress({ id, progress: percent });
+        thunkAPI.dispatch(changeUploadsProgress({ id, progress: percent }));
       },
     });
-    removeUpload({ id });
-    increaseUsedSpace({ size: file.size });
+    thunkAPI.dispatch(removeFromUploadsStack({ id }));
+    thunkAPI.dispatch(increaseUserUsedSpace(file.size));
     return response.data;
   } catch (error) {
     toast.error(error.response.data.message);
-    removeUpload({ id });
+    thunkAPI.dispatch(removeFromUploadsStack({ id }));
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
 
-export const downloadFile = async ({ id = null, name }) => {
+export const downloadFile = async ({ id = null, name }, thunkAPI) => {
   try {
+    const { authToken } = thunkAPI.getState().user;
     const response = await axios({
       method: 'get',
-      headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
+      headers: { Authorization: `Bearer ${authToken}` },
       url: `${BASE_URL}/files/${id}`,
       responseType: 'blob',
     });
@@ -111,14 +116,15 @@ export const downloadFile = async ({ id = null, name }) => {
   }
 };
 
-export const deleteFile = async ({ id = null, decreaseUsedSpace }) => {
+export const deleteFile = async ({ id = null, size = 0, decreaseUserUsedSpace }, thunkAPI) => {
   try {
+    const { authToken } = thunkAPI.getState().user;
     const response = await axios({
       method: 'delete',
-      headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
+      headers: { Authorization: `Bearer ${authToken}` },
       url: `${BASE_URL}/files/${id}`,
     });
-    decreaseUsedSpace();
+    thunkAPI.dispatch(decreaseUserUsedSpace(size));
     toast.success(response.data.message);
     return id;
   } catch (error) {

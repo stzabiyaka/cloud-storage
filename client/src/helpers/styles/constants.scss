@@ -1,15 +1,23 @@
-$color-primary: #ffffff;
-$color-secondary: #c3cb9b;
-$color-accent: #946c61;
-$color-translucent: rgba(255, 255, 255, 0.5);
+$color-primary: #ffffff80;
+$color-secondary: #ffffff;
+$color-accent: #5ce1e6;
+$color-translucent: #5ce1e680;
 
-$background-primary: #09012c;
-$background-secondary: #171f4e;
-$background-triadic: #242c01;
-$background-backdrop: rgba(0, 0, 0, 0.5);
+$background-primary: #152b3a;
+$background-secondary: #2e6e7080;
+$background-triadic: #080344;
+$background-backdrop: rgba(15, 34, 46, 0.95);
 
 $mobile: 400px;
 $tablet: 768px;
 $desktop: 1200px;
 
 $layout-unit: 8px;
+$navbar-height: 70px;
+$footer-height: 20px;
+
+@mixin cssTransition($property) {
+  transition-property: $property;
+  transition-duration: 250ms;
+  transition-timing-function: ease-out;
+}

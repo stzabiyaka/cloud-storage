@@ -42,6 +42,7 @@ const UserMenu = () => {
       <button
         className="menu__button"
         type="button"
+        disabled={isVisible}
         onClick={() => {
           setIsVisible(true);
         }}

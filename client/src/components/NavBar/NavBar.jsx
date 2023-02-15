@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectIsAuth } from '../../redux/userState/userStateSlice';
-import { selectCurrentDir } from '../../redux/filesState/filesStateSlice';
+import { selectIsAuth } from '../../redux/userState';
+import { selectCurrentDir } from '../../redux/filesState';
 import { searchFiles, fetchFiles } from '../../redux/operations';
 import UserMenu from '../UserMenu';
 import './NavBar.scss';
@@ -40,7 +40,7 @@ const NavBar = () => {
       <div className="container container--navbar">
         <div className="navbar__content">
           <nav className="nav">
-            <NavLink to="/" className="logo__link">
+            <NavLink to="/" className="logo__link" title="Home">
               <svg aria-label="Logo" className="navbar__logo">
                 <use href={`${icons}#icon-storage`} />
               </svg>

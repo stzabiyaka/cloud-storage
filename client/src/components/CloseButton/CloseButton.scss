@@ -15,6 +15,7 @@
   border: 2px solid currentColor;
 
   border-radius: 50%;
+  @include cssTransition(color transform);
 
   &:hover,
   &:focus {

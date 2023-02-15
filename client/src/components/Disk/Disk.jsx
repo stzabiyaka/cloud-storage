@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import {
   selectCurrentDir,
   selectDirectoriesStack,
-  selectIsFileLoading,
   selectSort,
   selectView,
   setCurrentDir,
@@ -18,10 +17,9 @@ import FilesList from '../FilesList';
 import Modal from '../Modal/Modal';
 import CreateDirPopUp from '../CreateDirPopUp';
 import UploadFilePopUp from '../UploadFilePopUp';
-import Uploader from '../Uploader';
 import Breadcrumbs from '../Breadcrumbs';
 import SortSelect from '../SortSelect/SortSelect';
-import Loader from '../Loader/Loader';
+import icons from '../../assets/icons/icons.svg';
 
 import './Disk.scss';
 
@@ -30,14 +28,13 @@ const Disk = () => {
 
   const dispatch = useDispatch();
   const diskFreeSpace = useSelector(selectCurrentUserFreeSpace);
-  const isLoading = useSelector(selectIsFileLoading);
   const currentDir = useSelector(selectCurrentDir);
   const dirStack = [...useSelector(selectDirectoriesStack)];
   const sort = useSelector(selectSort);
   const view = useSelector(selectView);
 
   useEffect(() => {
-    dispatch(fetchFiles({ parent: currentDir, sort }));
+    dispatch(fetchFiles());
   }, [currentDir, dispatch, sort]);
 
   const handleClickBackBtn = () => {
@@ -61,7 +58,7 @@ const Disk = () => {
         <li className="disk__controls-item">
           <Button
             title="Create folder"
-            label="Create folder"
+            icon="folder-add"
             type="button"
             onClick={() => {
               setShowModal('dir');
@@ -71,7 +68,7 @@ const Disk = () => {
         <li className="disk__controls-item">
           <Button
             title="Upload files"
-            label="Upload files"
+            icon="upload"
             type="button"
             onClick={() => {
               setShowModal('file');
@@ -91,15 +88,24 @@ const Disk = () => {
         </li>
       </ul>
       <div className="disk__dashboard">
-        <div className="disk__dashboard-space">Disk free space: {sizeFormatter(diskFreeSpace)}</div>
+        <svg
+          className="disk__space-indicator"
+          aria-label="Disk free space indicator"
+          style={{
+            backgroundImage: `linear-gradient(to bottom, transparent ${diskFreeSpace.percent}%, #5ce1e680 ${diskFreeSpace.percent}%)`,
+          }}
+        >
+          <use href={`${icons}#icon-storage-indicator`} />
+        </svg>
+        <div className="disk__dashboard-space">
+          Disk free space: {sizeFormatter(diskFreeSpace.value)}
+        </div>
       </div>
       <Breadcrumbs />
-      {isLoading && <Loader />}
-      {!isLoading && <FilesList />}
-      <Uploader />
+      <FilesList />
       {showModal && (
         <Modal
-          title={showModal === 'dir' ? 'Create new folder' : 'Choose files to uplod'}
+          title={showModal === 'dir' ? 'Create new folder' : 'Choose files to upload'}
           onClose={() => {
             setShowModal(null);
           }}

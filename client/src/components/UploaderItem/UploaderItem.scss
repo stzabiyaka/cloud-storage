@@ -5,7 +5,8 @@
   padding: 8px;
 
   background-color: $background-secondary;
-  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  border-radius: 4px;
 
   &:not(:last-of-type) {
     margin-bottom: 8px;
@@ -19,23 +20,25 @@
 }
 
 .uploader__item-header {
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
 }
 
 .progress__bar {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 1rem;
   margin-right: 8px;
   overflow: hidden;
 
+  background-color: $background-primary;
+
   border-radius: 8px;
 
   &-percent {
-    position: absolute;
-    top: 0;
-    left: 50%;
-
     font-size: 0.8rem;
   }
 }

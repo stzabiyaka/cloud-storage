@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { addFile } from '../../redux/operations';
+import { uploadFile } from '../../redux/operations';
 import {
-  selectCurrentDir,
   pushUploadToStack,
   removeFromUploadsStack,
   changeUploadsProgress,
@@ -23,26 +22,9 @@ const UploadFilePopUp = ({ onSuccess }) => {
 
   const dispatch = useDispatch();
   const diskFreeSpace = useSelector(selectCurrentUserFreeSpace);
-  const currentDir = useSelector(selectCurrentDir);
 
   const buttonLabel = `Upload File${files.length > 1 ? 's' : ''}`;
   const fileNames = files.map(({ name }) => name);
-
-  const pushUpload = ({ id, name, progress }) => {
-    dispatch(pushUploadToStack({ id, name, progress }));
-  };
-
-  const removeUpload = ({ id }) => {
-    dispatch(removeFromUploadsStack({ id }));
-  };
-
-  const changeProgress = ({ id, progress }) => {
-    dispatch(changeUploadsProgress({ id, progress }));
-  };
-
-  const increaseUsedSpace = ({ size }) => {
-    dispatch(increaseUserUsedSpace(size));
-  };
 
   const handleUploadFile = event => {
     event.preventDefault();
@@ -54,13 +36,12 @@ const UploadFilePopUp = ({ onSuccess }) => {
 
     files.forEach(file => {
       dispatch(
-        addFile({
-          dirId: currentDir,
+        uploadFile({
           file,
-          pushUpload,
-          removeUpload,
-          changeProgress,
-          increaseUsedSpace,
+          pushUploadToStack,
+          removeFromUploadsStack,
+          changeUploadsProgress,
+          increaseUserUsedSpace,
         })
       );
     });

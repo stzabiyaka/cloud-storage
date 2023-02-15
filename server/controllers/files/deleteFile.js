@@ -1,9 +1,9 @@
 const fileServices = require('../../services/fileServices');
-const { File } = require('../../models');
+const { File, User } = require('../../models');
 const { requestError } = require('../../helpers');
 
 const deleteFile = async (req, res) => {
-  const { _id: owner } = req.user;
+  const { _id: owner, usedSpace } = req.user;
   const { fileId } = req.params;
   const file = await File.findOne({ _id: fileId, owner });
 
@@ -15,6 +15,10 @@ const deleteFile = async (req, res) => {
   await fileServices.deleteFile(file);
 
   await File.findByIdAndDelete(fileId);
+
+  const updatedUsedSpace = usedSpace - file.size;
+
+  await User.findByIdAndUpdate(owner, { usedSpace: updatedUsedSpace });
 
   res.status(200).json({ message: `File ${file.name} successfully deleted.` });
 };

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { authAPI } from '../../services/apiService';
-import { signInUser } from '../../redux/operations';
+import { signInUser, signUpUser } from '../../redux/operations';
 import FormInput from '../FormInput';
 import Button from '../Button/Button';
 import './SignForm.scss';
@@ -26,7 +25,7 @@ const SignForm = ({ action }) => {
         break;
 
       case 'signup':
-        authAPI.signUp({ name, email, password });
+        signUpUser({ name, email, password });
         navigate('/signin', { replace: true });
         break;
       default:

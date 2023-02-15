@@ -6,8 +6,7 @@ import {
   pushDirToStack,
 } from '../../redux/filesState/filesStateSlice';
 import { decreaseUserUsedSpace } from '../../redux/userState/userStateSlice';
-import { deleteFile } from '../../redux/operations';
-import { filesAPI } from '../../services/apiService';
+import { deleteFile, downloadFile } from '../../redux/operations';
 import { sizeFormatter } from '../../helpers/functions';
 import Button from '../Button/Button';
 import ConfirmedButton from '../ConfirmedButton';
@@ -34,15 +33,11 @@ const File = ({ id, name, date, size, type, header = false }) => {
 
   const handleDownload = event => {
     event.stopPropagation();
-    filesAPI.downloadFile({ id, name });
-  };
-
-  const decreaseUsedSpace = () => {
-    dispatch(decreaseUserUsedSpace(size));
+    dispatch(downloadFile({ id, name }));
   };
 
   const handleDelete = () => {
-    dispatch(deleteFile({ id, decreaseUsedSpace }));
+    dispatch(deleteFile({ id, size, decreaseUserUsedSpace }));
   };
 
   return (
@@ -69,7 +64,7 @@ const File = ({ id, name, date, size, type, header = false }) => {
             <li className="file__download file__download--tile">
               <Button
                 type="button"
-                label="Download"
+                icon="download"
                 title="Download file"
                 onClick={handleDownload}
               />
@@ -96,7 +91,7 @@ const File = ({ id, name, date, size, type, header = false }) => {
             <div className="file__download file__download--list">
               <Button
                 type="button"
-                label="Download"
+                icon="download"
                 title="Download file"
                 onClick={handleDownload}
               />

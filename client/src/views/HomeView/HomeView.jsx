@@ -1,8 +1,10 @@
+import Hero from '../../components/Hero';
+
 const HomeView = () => {
   return (
     <section className="section">
-      <div className="container">
-        <h2 className="section__title">HomeView</h2>
+      <div className="container container--hero">
+        <Hero />
       </div>
     </section>
   );

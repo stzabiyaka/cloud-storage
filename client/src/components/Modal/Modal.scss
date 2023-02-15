@@ -1,17 +1,5 @@
 @import '../../helpers/styles/constants.scss';
 
-.backdrop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-
-  background-color: $background-backdrop;
-  backdrop-filter: blur(5px);
-}
-
 .modal__container {
   display: flex;
   flex-direction: column;
@@ -20,7 +8,11 @@
   min-height: calc(100vh / 2);
   padding: 32px;
   margin: auto;
-  background-color: $background-secondary;
+  background-color: $background-primary;
+
+  color: $color-secondary;
+
+  box-shadow: 0 0 50px $color-translucent;
 
   border: none;
   border-radius: 32px;
@@ -33,36 +25,4 @@
   font-weight: 700;
 
   text-align: center;
-
-  color: $color-secondary;
-}
-
-.modal__button {
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  margin-left: auto;
-  margin-bottom: 32px;
-
-  cursor: pointer;
-
-  color: $background-primary;
-
-  background-color: transparent;
-
-  border: 2px solid currentColor;
-
-  border-radius: 50%;
-
-  &:hover,
-  &:focus {
-    color: $color-accent;
-    transform: scale(1.1);
-  }
-}
-
-.modal__button-icon {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
 }

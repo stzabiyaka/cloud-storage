@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchFiles, addFile, deleteFile, createDir } from '../operations';
+import { fetchFiles, uploadFile, deleteFile, createDir } from '../operations';
 
 const initialState = {
   files: [],
@@ -83,11 +83,11 @@ const filesStateSlice = createSlice({
     [createDir.rejected]: (state, action) => {
       state.error = action.payload;
     },
-    [addFile.fulfilled]: (state, action) => {
+    [uploadFile.fulfilled]: (state, action) => {
       state.error = initialState.error;
       state.files = [...state.files, action.payload];
     },
-    [addFile.rejected]: (state, action) => {
+    [uploadFile.rejected]: (state, action) => {
       state.error = action.payload;
     },
     [deleteFile.pending]: state => {

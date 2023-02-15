@@ -2,26 +2,24 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
-const LOCAL_STORAGE_KEY = process.env.REACT_APP_LOCAL_STORAGE_KEY;
-
 export const getCurrentUser = async (_, thunkAPI) => {
   try {
+    const { authToken } = thunkAPI.getState().user;
     const response = await axios({
       method: 'get',
-      headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
+      headers: { Authorization: `Bearer ${authToken}` },
       url: `${BASE_URL}/user/`,
     });
-    localStorage.setItem(LOCAL_STORAGE_KEY, response.data.token);
     return response.data;
   } catch (error) {
     toast.error(error.response.data.message);
-    localStorage.removeItem(LOCAL_STORAGE_KEY);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
 
 export const updateUserAvatar = async ({ file }, thunkAPI) => {
   try {
+    const { authToken } = thunkAPI.getState().user;
     let url = `${BASE_URL}/users/avatar/`;
 
     const formData = new FormData();
@@ -30,7 +28,7 @@ export const updateUserAvatar = async ({ file }, thunkAPI) => {
 
     const response = await axios({
       method: 'patch',
-      headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
+      headers: { Authorization: `Bearer ${authToken}` },
       url,
       data,
     });
@@ -43,11 +41,12 @@ export const updateUserAvatar = async ({ file }, thunkAPI) => {
 
 export const deleteUserAvatar = async (_, thunkAPI) => {
   try {
+    const { authToken } = thunkAPI.getState().user;
     let url = `${BASE_URL}/users/avatar/`;
 
     const response = await axios({
       method: 'delete',
-      headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}` },
+      headers: { Authorization: `Bearer ${authToken}` },
       url,
     });
     return response.data;

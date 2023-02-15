@@ -3,7 +3,7 @@ const config = require('config');
 const { requestError } = require('../helpers');
 const { User } = require('../models');
 
-const SECRET_KEY = config.get('secretKey');
+const SECRET_KEY = config.get('SECRET_KEY');
 
 const authenticate = async (req, res, next) => {
   try {

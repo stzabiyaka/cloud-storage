@@ -10,8 +10,8 @@ const getCurrentUser = async (req, res) => {
     throw requestError(400, 'No user found.');
   }
 
-  const SECRET_KEY = config.get('secretKey');
-  const TOKEN_EXPIRES_IN = config.get('tokenExpiresIn');
+  const SECRET_KEY = config.get('SECRET_KEY');
+  const TOKEN_EXPIRES_IN = config.get('TOKEN_EXPIRES_IN');
   const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: TOKEN_EXPIRES_IN });
 
   return res.status(200).json({
@@ -21,7 +21,7 @@ const getCurrentUser = async (req, res) => {
       email: user.email,
       diskSpace: user.diskSpace,
       usedSpace: user.usedSpace,
-      avatar: user.avatar,
+      avatarURL: user.avatarURL,
     },
   });
 };

@@ -6,14 +6,17 @@
   list-style: none;
   margin-bottom: 16px;
 
-  font-size: 1rem;
-  font-weight: 500;
-
   color: $color-secondary;
 
   &__item {
     display: flex;
     align-items: center;
+
+    font-size: 1rem;
+    font-weight: 500;
+
+    color: $color-translucent;
+
     &:not(:first-of-type) {
       margin-left: 0.4rem;
     }

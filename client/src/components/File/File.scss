@@ -9,7 +9,7 @@
 
   &--list {
     display: grid;
-    grid-template-columns: 1fr 4fr repeat(4, 1fr);
+    grid-template-columns: 1fr 10fr 2fr 2fr repeat(2, 1fr);
     align-items: center;
     margin: 16px;
   }

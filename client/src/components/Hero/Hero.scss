@@ -1,0 +1,28 @@
+@import '../../helpers/styles/constants.scss';
+
+.hero {
+  min-height: calc(100vh - $navbar-height - $footer-height - 52px);
+  max-height: calc(100vh - $navbar-height - $footer-height - 52px);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.hero__picture {
+  align-self: flex-end;
+  width: 45vmax;
+  height: 31.75vmax;
+
+  background-image: url('../../assets/images/hero.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  filter: drop-shadow(10px 10px 50px $color-translucent);
+}
+
+.hero__info {
+  justify-self: center;
+  width: 40%;
+  margin: auto 16px auto 0;
+}

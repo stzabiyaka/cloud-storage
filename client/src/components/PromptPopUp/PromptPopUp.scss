@@ -2,8 +2,8 @@
 
 .prompt {
   position: absolute;
-  top: 16px;
-  left: -120px;
+  top: 24px;
+  left: -142px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +12,7 @@
 
   z-index: 1;
 
-  background-color: $background-triadic;
+  background-color: $background-primary;
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;

@@ -3,8 +3,15 @@
 .application {
   width: 100%;
   min-height: 100vh;
+  max-height: 100vh;
+  overflow-y: hidden;
 
   color: #ffffff;
 
   background-color: $background-primary;
+  background-image: url('../../assets/images/background_001.svg'),
+    url('../../assets/images/background_002.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: right -50px bottom, right bottom;
+  background-size: 94vmax, 100vmax;
 }

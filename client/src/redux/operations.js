@@ -5,11 +5,13 @@ import { authAPI, userAPI, filesAPI } from '../services/apiService';
 
 export const signInUser = createAsyncThunk('user/setUser', authAPI.signIn);
 
+export const signUpUser = authAPI.signUp;
+
 export const getCurrentUser = createAsyncThunk('user/setUser', userAPI.getCurrentUser);
 
-export const updateUserAvatar = createAsyncThunk('user/setUser', userAPI.updateUserAvatar);
+export const updateUserAvatar = createAsyncThunk('user/updateUserAvatar', userAPI.updateUserAvatar);
 
-export const deleteUserAvatar = createAsyncThunk('user/setUser', userAPI.deleteUserAvatar);
+export const deleteUserAvatar = createAsyncThunk('user/unsetUserAvatar', userAPI.deleteUserAvatar);
 
 // FILES //
 
@@ -19,6 +21,8 @@ export const searchFiles = createAsyncThunk('files/setFiles', filesAPI.searchFil
 
 export const createDir = createAsyncThunk('files/createDir', filesAPI.createDir);
 
-export const addFile = createAsyncThunk('files/addFile', filesAPI.addFile);
+export const uploadFile = createAsyncThunk('files/uploadFile', filesAPI.uploadFile);
+
+export const downloadFile = createAsyncThunk('files/downloadFile', filesAPI.downloadFile);
 
 export const deleteFile = createAsyncThunk('files/deleteFile', filesAPI.deleteFile);

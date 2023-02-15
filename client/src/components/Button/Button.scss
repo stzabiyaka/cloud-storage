@@ -11,11 +11,12 @@
   font-weight: 500;
   line-height: 1;
 
-  color: $color-secondary;
+  color: currentColor;
 
   background-color: transparent;
   border: 2px solid currentColor;
   border-radius: 8px;
+  @include cssTransition(color transform filter);
 
   cursor: pointer;
 

@@ -24,7 +24,7 @@ const Uploader = () => {
       <div className="uploader">
         <div className="uploader__header">
           <p className="uploader__header-title">Uploads progress</p>
-          <CloseButton onClose={handleClose} />
+          <CloseButton size="small" onClose={handleClose} />
         </div>
         <ul className="uploader__uploads">
           {uploads.map(item => (

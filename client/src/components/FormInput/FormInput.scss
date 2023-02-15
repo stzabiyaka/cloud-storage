@@ -2,6 +2,7 @@
 
 .input {
   width: 100%;
+  color: $color-secondary;
 
   &:not(:last-of-type) {
     margin-bottom: 32px;
@@ -20,8 +21,6 @@
   padding: 16px;
 
   cursor: pointer;
-
-  color: $color-secondary;
 
   border: 1px dashed currentColor;
   border-radius: 32px;
