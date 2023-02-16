@@ -77,21 +77,27 @@ const UploadFilePopUp = ({ onSuccess }) => {
       onDrop={handleDrop}
     >
       {!isDragEnter && (
-        <form className="upload__form" onSubmit={handleUploadFile}>
+        <>
           <FormInput
             name="files_upload"
             type="file"
-            title="Choose File"
+            title="Choose Files"
             multiple={true}
             fileNames={fileNames}
             setValue={value => setFiles(value)}
           />
           {files.length > 0 && (
-            <Button type="submit" label={buttonLabel} title={buttonLabel} mt={'32px'} />
+            <Button
+              type="submit"
+              label={buttonLabel}
+              title={buttonLabel}
+              mt={'32px'}
+              onClick={handleUploadFile}
+            />
           )}
-        </form>
+        </>
       )}
-      {isDragEnter && <div className="drop__area">Drag and drop your files here</div>}
+      {isDragEnter && <div className="upload__drop-area">Drag and drop your files here</div>}
     </div>
   );
 };

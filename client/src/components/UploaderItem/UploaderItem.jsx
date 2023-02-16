@@ -7,14 +7,14 @@ const UploaderItem = ({ item }) => {
       <p className="uploader__item-header">{name}</p>
       <div className="uploader__progress">
         <div
-          className="progress__bar"
+          className="uploader__progress-bar"
           style={{
             backgroundImage: `linear-gradient(to right, rgb(${
               235 - progress
             }, 155, 0) ${progress}%, transparent ${progress}% )`,
           }}
         >
-          <p className="progress__bar-percent">{`${progress}%`}</p>
+          <p className="uploader__progress-bar-percent">{`${progress}%`}</p>
         </div>
       </div>
     </li>

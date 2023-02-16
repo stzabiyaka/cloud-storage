@@ -3,7 +3,7 @@ import Hero from '../../components/Hero';
 const HomeView = () => {
   return (
     <section className="section">
-      <div className="container container--hero">
+      <div className="container">
         <Hero />
       </div>
     </section>

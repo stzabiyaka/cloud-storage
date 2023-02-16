@@ -1,7 +1,11 @@
+@import '../../helpers/styles/constants.scss';
+
 .files__list {
-  list-style: none;
+  $hight: calc($container-height - 132px - ($layout-unit * 4));
+
   width: 100%;
-  max-height: 50vh;
+  min-height: $hight;
+  max-height: $hight;
   overflow-y: auto;
 
   &--tile {

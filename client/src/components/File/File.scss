@@ -1,17 +1,24 @@
 @import '../../helpers/styles/constants.scss';
 
 .file {
-  color: $color-primary;
+  border: 2px solid transparent;
+  border-radius: 8px;
+
+  @include cssTransition(color border-color);
 
   &:not(:last-of-type) {
-    margin-bottom: 16px;
+    margin-bottom: $layout-unit;
+  }
+
+  &:hover {
+    border-color: $background-primary;
   }
 
   &--list {
     display: grid;
     grid-template-columns: 1fr 10fr 2fr 2fr repeat(2, 1fr);
     align-items: center;
-    margin: 16px;
+    margin: $layout-unit;
   }
 
   &--tile {
@@ -70,41 +77,41 @@
       }
     }
   }
-}
 
-.file__name {
-  &--list {
-    grid-column-start: 2;
+  &__name {
+    &--list {
+      grid-column-start: 2;
+    }
+
+    &--tile {
+      display: block;
+      margin-bottom: 8px;
+    }
   }
 
-  &--tile {
+  &__date {
+    grid-column-start: 3;
+  }
+
+  &__size {
+    grid-column-start: 4;
+  }
+
+  &__download {
+    &--list {
+      grid-column-start: 5;
+    }
+
+    &--tile {
+      margin-right: 16px;
+    }
+  }
+
+  &__delete {
+    grid-column-start: 6;
+  }
+
+  &__info {
     display: block;
-    margin-bottom: 8px;
   }
-}
-
-.file__date {
-  grid-column-start: 3;
-}
-
-.file__size {
-  grid-column-start: 4;
-}
-
-.file__download {
-  &--list {
-    grid-column-start: 5;
-  }
-
-  &--tile {
-    margin-right: 16px;
-  }
-}
-
-.file__delete {
-  grid-column-start: 6;
-}
-
-.file__info {
-  display: block;
 }

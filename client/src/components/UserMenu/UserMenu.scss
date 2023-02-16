@@ -11,6 +11,9 @@
     border-radius: 50%;
     padding: 0;
     margin-left: auto;
+
+    color: $color-secondary;
+
     background-color: transparent;
 
     cursor: pointer;
@@ -19,6 +22,7 @@
 
     &:hover,
     &:focus {
+      color: $color-accent;
       transform: scale(1.1);
       filter: drop-shadow(0 0 20px $color-translucent);
     }
@@ -36,7 +40,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  padding: 16px;
+  padding: $layout-unit;
   z-index: 1;
 
   background-color: $background-backdrop;
@@ -45,10 +49,16 @@
 
   box-shadow: 0 0 50px $color-translucent;
 
-  &__name {
+  &__welcome {
     display: block;
     text-align: center;
-    margin-bottom: 16px;
+    margin: $layout-unit 0;
+
+    font-size: 1.2rem;
+
+    &-name {
+      color: $color-accent;
+    }
   }
 
   &__list {
@@ -57,57 +67,76 @@
     list-style: none;
 
     &-item {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
       margin: 0 auto 32px auto;
+      padding: 0 $layout-unit;
+
+      &:first-of-type {
+        justify-content: center;
+      }
     }
   }
-}
 
-.avatar__container {
-  position: relative;
-}
+  &__avatar {
+    position: relative;
 
-.avatar__controls {
-  position: absolute;
-  top: 50%;
-  right: 8px;
-  display: none;
-  list-style: none;
-  transform: translateY(-50%);
+    &-controls {
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      display: none;
+      transform: translateY(-50%);
 
-  .avatar__container:hover & {
-    display: flex;
-    flex-direction: column;
-  }
+      .profile__avatar:hover & {
+        display: flex;
+        flex-direction: column;
+      }
 
-  &-item {
-    &:not(:last-of-type) {
-      margin-bottom: 16px;
+      &-item {
+        &:not(:last-of-type) {
+          margin-bottom: $layout-unit;
+        }
+      }
+    }
+
+    &-control {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      color: $color-primary;
+      background-color: $background-backdrop;
+      border: none;
+      border-radius: 50%;
+
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        background-color: $background-primary;
+      }
+
+      &-icon {
+        width: 1rem;
+        height: 1rem;
+
+        fill: currentColor;
+      }
+
+      &-input {
+        display: none;
+      }
     }
   }
-}
 
-.avatar__control {
-  padding: 8px;
-  color: $color-primary;
-  background-color: $background-backdrop;
-  border: none;
-  border-radius: 50%;
+  &__info {
+    &-title {
+      color: $color-primary;
+    }
 
-  cursor: pointer;
-
-  &:hover,
-  &:focus {
-    background-color: $background-primary;
-  }
-
-  &-icon {
-    width: 1rem;
-    height: 1rem;
-
-    fill: currentColor;
-  }
-
-  &-input {
-    display: none;
+    &-value {
+      color: $color-accent;
+    }
   }
 }

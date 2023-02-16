@@ -4,7 +4,6 @@ import { createDir } from '../../redux/operations';
 
 import FormInput from '../FormInput';
 import Button from '../Button/Button';
-import './CreateDirPopUp.scss';
 
 const CreateDirPopUp = ({ onSuccess }) => {
   const [dirName, setDirName] = useState('');
@@ -20,10 +19,16 @@ const CreateDirPopUp = ({ onSuccess }) => {
   };
 
   return (
-    <form onSubmit={handleCreateDir}>
+    <>
       <FormInput name="folder name" value={dirName} setValue={setDirName} />
-      <Button type="submit" label="Create Folder" title="Create Folder" mt="32px" />
-    </form>
+      <Button
+        type="submit"
+        label="Create Folder"
+        title="Create Folder"
+        mt="32px"
+        onClick={handleCreateDir}
+      />
+    </>
   );
 };
 

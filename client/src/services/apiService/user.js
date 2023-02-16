@@ -20,7 +20,7 @@ export const getCurrentUser = async (_, thunkAPI) => {
 export const updateUserAvatar = async ({ file }, thunkAPI) => {
   try {
     const { authToken } = thunkAPI.getState().user;
-    let url = `${BASE_URL}/users/avatar/`;
+    let url = `${BASE_URL}/user/avatar/`;
 
     const formData = new FormData();
     formData.append('avatar', file);
@@ -42,7 +42,7 @@ export const updateUserAvatar = async ({ file }, thunkAPI) => {
 export const deleteUserAvatar = async (_, thunkAPI) => {
   try {
     const { authToken } = thunkAPI.getState().user;
-    let url = `${BASE_URL}/users/avatar/`;
+    let url = `${BASE_URL}/user/avatar/`;
 
     const response = await axios({
       method: 'delete',

@@ -1,28 +1,103 @@
 @import '../../helpers/styles/constants.scss';
 
 .hero {
-  min-height: calc(100vh - $navbar-height - $footer-height - 52px);
-  max-height: calc(100vh - $navbar-height - $footer-height - 52px);
+  min-height: $container-height;
+  max-height: $container-height;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
+
+  &__picture {
+    width: 70%;
+    aspect-ratio: 1.3333;
+
+    background-image: url('../../assets/images/hero.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    filter: drop-shadow(10px 10px 50px $color-translucent);
+
+    animation: onLoadOpacity 1000ms ease-in 0ms 1 forwards;
+  }
+
+  &__info {
+    width: 30%;
+    margin: auto $layout-unit auto 0;
+
+    color: $color-secondary;
+
+    transform: scale(0);
+
+    animation: onLoadScale 300ms ease-in 1000ms 1 forwards;
+
+    &-title {
+      display: block;
+      margin-bottom: 16px;
+
+      font-size: 1.8rem;
+
+      color: $color-accent;
+    }
+
+    &-text {
+      display: block;
+      margin-bottom: 8px;
+
+      &:last-of-type {
+        margin-bottom: 32px;
+      }
+    }
+
+    &-span {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: $color-accent;
+    }
+  }
+
+  &__link {
+    @include cssTransition(color transform filter);
+
+    &:hover,
+    &:focus {
+      color: $color-accent;
+
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 20px $color-accent);
+    }
+
+    &--text {
+      color: $color-accent;
+    }
+
+    &--button {
+      padding: 8px;
+
+      font-weight: 500;
+      line-height: 1;
+
+      color: currentColor;
+
+      border: 2px solid currentColor;
+      border-radius: 8px;
+    }
+  }
 }
 
-.hero__picture {
-  align-self: flex-end;
-  width: 45vmax;
-  height: 31.75vmax;
+@keyframes onLoadOpacity {
+  0% {
+    opacity: 0;
+  }
 
-  background-image: url('../../assets/images/hero.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-
-  filter: drop-shadow(10px 10px 50px $color-translucent);
+  100% {
+    opacity: 1;
+  }
 }
 
-.hero__info {
-  justify-self: center;
-  width: 40%;
-  margin: auto 16px auto 0;
+@keyframes onLoadScale {
+  100% {
+    transform: scale(1);
+  }
 }

@@ -26,15 +26,15 @@
   &--small {
     padding: 4px;
   }
-}
 
-.close__button-icon {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
+  &-icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
 
-  &--small {
-    width: 8px;
-    height: 8px;
+    &--small {
+      width: 8px;
+      height: 8px;
+    }
   }
 }

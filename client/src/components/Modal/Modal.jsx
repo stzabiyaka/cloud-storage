@@ -33,10 +33,10 @@ const Modal = ({ title, children, onClose }) => {
 
   return createPortal(
     <div className="backdrop" onClick={handleBackdropClick}>
-      <div className="modal__container">
+      <div className="modal">
         <CloseButton onClose={handleClose} />
         <h2 className="modal__title">{title}</h2>
-        {cloneElement(children, { onSuccess: onClose })}
+        <div className="modal__content">{cloneElement(children, { onSuccess: onClose })}</div>
       </div>
     </div>,
     document.querySelector('#modal-root')

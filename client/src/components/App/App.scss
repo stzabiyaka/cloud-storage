@@ -6,9 +6,13 @@
   max-height: 100vh;
   overflow-y: hidden;
 
-  color: #ffffff;
+  font-size: $layout-unit;
+  font-weight: 400;
+
+  color: $color-primary;
 
   background-color: $background-primary;
+
   background-image: url('../../assets/images/background_001.svg'),
     url('../../assets/images/background_002.svg');
   background-repeat: no-repeat, no-repeat;

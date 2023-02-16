@@ -56,37 +56,39 @@ const UserMenu = () => {
               setIsVisible(false);
             }}
           />
-          <p className="profile__name">Welcome, {name}!</p>
+          <p className="profile__welcome">
+            Welcome, <span className="profile__welcome-name">{name}</span>!
+          </p>
           <ul className="profile__list">
             <li className="profile__list-item">
-              <div className="avatar__container">
+              <div className="profile__avatar">
                 <UserAvatar avatarSize={150} />
-                <ul className="avatar__controls">
-                  <li className="avatar__controls-item">
+                <ul className="profile__avatar-controls">
+                  <li className="profile__avatar-controls-item">
                     <label
-                      className="avatar__control avatar__control--edit"
+                      className="profile__avatar-control profile__avatar-control--edit"
                       type="button"
                       title="Update avatar"
                     >
-                      <svg className="avatar__control-icon" aria-label="Edit avatar">
+                      <svg className="profile__avatar-control-icon" aria-label="Edit avatar">
                         <use href={`${icons}#icon-edit`} />
                       </svg>
                       <input
                         type="file"
                         accept="image/*"
-                        className="avatar__control-input"
+                        className="profile__avatar-control-input"
                         onChange={event => handleEditInputChange(event)}
                       />
                     </label>
                   </li>
-                  <li className="avatar__controls-item">
+                  <li className="profile__avatar-controls-item">
                     <button
-                      className="avatar__control avatar__control--delete"
+                      className="profile__avatar-control profile__avatar-control--delete"
                       type="button"
                       title="Delete avatar"
                       onClick={handleDeleteBtnClick}
                     >
-                      <svg className="avatar__control-icon" aria-label="Delete avatar">
+                      <svg className="profile__avatar-control-icon" aria-label="Delete avatar">
                         <use href={`${icons}#icon-delete`} />
                       </svg>
                     </button>
@@ -95,15 +97,16 @@ const UserMenu = () => {
               </div>
             </li>
             <li className="profile__list-item">
-              <p className="profile__info">Email: {email}</p>
+              <p className="profile__info-title">Email:</p>
+              <p className="profile__info-value">{email}</p>
             </li>
             <li className="profile__list-item">
-              <p className="profile__info">Disk space: {sizeFormatter(diskSpace)}</p>
+              <p className="profile__info-title">Disk space:</p>
+              <p className="profile__info-value">{sizeFormatter(diskSpace)}</p>
             </li>
             <li className="profile__list-item">
-              <p className="profile__info">
-                Disk free space: {sizeFormatter(diskSpace - usedSpace)}
-              </p>
+              <p className="profile__info-title">Disk free space:</p>
+              <p className="profile__info-value">{sizeFormatter(diskSpace - usedSpace)}</p>
             </li>
           </ul>
           <Button type="button" title="Sign Out" label="Sign Out" onClick={handleSignOut} />

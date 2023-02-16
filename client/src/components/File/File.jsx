@@ -46,7 +46,7 @@ const File = ({ id, name, date, size, type, header = false }) => {
         type === 'dir' ? ' file--folder' : ''
       }`}
       onClick={handleFileClick}
-      title={type === 'dir' ? `Click to open folder ${name}` : name}
+      title={type === 'dir' ? `Open folder ${name}` : name}
     >
       <div className={`file__icon file__icon--${view}`}>
         {!header && (

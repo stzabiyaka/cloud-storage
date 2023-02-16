@@ -1,39 +1,14 @@
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectIsAuth } from '../../redux/userState';
-import { selectCurrentDir } from '../../redux/filesState';
-import { searchFiles, fetchFiles } from '../../redux/operations';
+import SearchInput from '../SearchInput';
 import UserMenu from '../UserMenu';
-import './NavBar.scss';
 import icons from '../../assets/icons/icons.svg';
 
+import './NavBar.scss';
+
 const NavBar = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchTimeOut, setSearchTimeOut] = useState(false);
   const isAuth = useSelector(selectIsAuth);
-  const currentDir = useSelector(selectCurrentDir);
-
-  const dispatch = useDispatch();
-
-  const handleSearchQueryChange = event => {
-    const query = event.target.value;
-    setSearchQuery(query);
-
-    if (searchTimeOut !== false) {
-      clearTimeout(searchTimeOut);
-    }
-
-    if (query) {
-      setSearchTimeOut(
-        setTimeout(() => {
-          dispatch(searchFiles({ search: query }));
-        }, 500)
-      );
-    } else {
-      dispatch(fetchFiles({ parent: currentDir }));
-    }
-  };
 
   return (
     <header className="navbar">
@@ -41,10 +16,10 @@ const NavBar = () => {
         <div className="navbar__content">
           <nav className="nav">
             <NavLink to="/" className="logo__link" title="Home">
-              <svg aria-label="Logo" className="navbar__logo">
+              <svg aria-label="Logo" className="logo">
                 <use href={`${icons}#icon-storage`} />
               </svg>
-              <p className="navbar__title">ClouDisk</p>
+              <p className="logo__title">ClouDisk</p>
             </NavLink>
             <ul className="navlinks__list">
               {!isAuth && (
@@ -69,13 +44,7 @@ const NavBar = () => {
                     </NavLink>
                   </li>
                   <li className="navlinks__list-item">
-                    <input
-                      className="search__input"
-                      type="text"
-                      value={searchQuery}
-                      onChange={handleSearchQueryChange}
-                      placeholder="Search file..."
-                    />
+                    <SearchInput />
                   </li>
                 </>
               )}

@@ -15,7 +15,7 @@ const SortSelect = () => {
   };
 
   return (
-    <div className="sort__selector-label">
+    <div className="sort__label">
       <p className="sort__selector-title">Sort by:&nbsp;</p>
       <select
         name="sort-parameter"

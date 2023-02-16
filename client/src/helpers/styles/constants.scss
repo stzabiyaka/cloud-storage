@@ -4,17 +4,17 @@ $color-accent: #5ce1e6;
 $color-translucent: #5ce1e680;
 
 $background-primary: #152b3a;
-$background-secondary: #2e6e7080;
-$background-triadic: #080344;
+$background-secondary: #2e6e70cc;
 $background-backdrop: rgba(15, 34, 46, 0.95);
 
 $mobile: 400px;
 $tablet: 768px;
 $desktop: 1200px;
 
-$layout-unit: 8px;
+$layout-unit: 16px;
 $navbar-height: 70px;
 $footer-height: 20px;
+$container-height: calc(100vh - $navbar-height - $footer-height - ($layout-unit * 2));
 
 @mixin cssTransition($property) {
   transition-property: $property;

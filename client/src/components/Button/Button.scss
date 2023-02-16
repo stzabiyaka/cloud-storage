@@ -32,11 +32,11 @@
     opacity: 0.5;
     cursor: default;
   }
-}
 
-.button__icon {
-  width: 1em;
-  height: 1em;
+  &__icon {
+    width: 1em;
+    height: 1em;
 
-  fill: currentColor;
+    fill: currentColor;
+  }
 }

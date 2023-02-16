@@ -1,47 +1,29 @@
 @import '../../helpers/styles/constants.scss';
 
 .disk {
-  $height: calc(100vh - $navbar-height - $footer-height - 112px);
+  $height: calc($container-height - 64px);
   width: 100%;
   min-height: $height;
   max-height: $height;
-  padding: 16px 16px 16px 16px;
+  padding: $layout-unit;
   background-color: $background-backdrop;
   backdrop-filter: blur(5px);
   border-radius: 16px;
-}
 
-.disk__controls {
-  display: flex;
-  align-items: center;
-  margin-bottom: 32px;
+  &__controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: calc($layout-unit * 2);
 
-  list-style: none;
-}
+    color: $color-secondary;
 
-.disk__controls-item {
-  &:not(:last-of-type) {
-    margin-right: 16px;
+    &-item {
+      &:not(:last-of-type) {
+        margin-right: $layout-unit;
+      }
+      &:nth-last-of-type(2) {
+        margin-left: auto;
+      }
+    }
   }
-  &:nth-last-of-type(2) {
-    margin-left: auto;
-  }
-}
-
-.disk__dashboard {
-  display: flex;
-  align-items: center;
-
-  margin-bottom: 16px;
-
-  &-space {
-    margin-right: 8px;
-  }
-}
-
-.disk__space-indicator {
-  width: 32px;
-  height: 32px;
-  fill: $color-accent;
-  margin-right: 16px;
 }

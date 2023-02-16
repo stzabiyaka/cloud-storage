@@ -95,6 +95,7 @@ export const { unsetUser, purgeError, increaseUserUsedSpace, decreaseUserUsedSpa
 export const selectIsAuth = state => (state.user.authToken ? true : false);
 export const selectIsRefresh = state => (state.user.authToken && !state.user.email ? true : false);
 export const selectCurrentUser = state => state.user.currentUser;
+export const selectCurrentUserDiskSpace = state => state.currentUser.diskSpace;
 export const selectCurrentUserFreeSpace = state => {
   const value = state.user.currentUser.diskSpace - state.user.currentUser.usedSpace;
   const percent = Math.round(value / (state.user.currentUser.diskSpace / 100));
