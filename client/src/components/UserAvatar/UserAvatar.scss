@@ -1,7 +1,15 @@
+@import '../../helpers/styles/constants.scss';
 .avatar {
+  width: 24px;
+  height: 24px;
   display: block;
 
   fill: currentColor;
 
   border-radius: 50%;
+
+  @media screen and (min-width: $tablet) {
+    width: 36px;
+    height: 36px;
+  }
 }

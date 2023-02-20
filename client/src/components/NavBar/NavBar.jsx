@@ -37,18 +37,14 @@ const NavBar = () => {
                 </li>
               )}
               {isAuth && (
-                <>
-                  <li className="navlinks__list-item">
-                    <NavLink to="/files" className="navlink" title="Go to your disk">
-                      Disk
-                    </NavLink>
-                  </li>
-                  <li className="navlinks__list-item">
-                    <SearchInput />
-                  </li>
-                </>
+                <li className="navlinks__list-item">
+                  <NavLink to="/files" className="navlink" title="Go to your disk">
+                    Disk
+                  </NavLink>
+                </li>
               )}
             </ul>
+            {isAuth && <SearchInput />}
           </nav>
           {isAuth && <UserMenu />}
         </div>

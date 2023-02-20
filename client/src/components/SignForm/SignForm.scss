@@ -3,9 +3,11 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  min-width: 280px;
+  max-width: 600px;
+  width: calc(100% - ($layout-unit * 2));
   margin: auto;
-  padding: 32px;
+  padding: calc($layout-unit * 2);
 
   color: $color-secondary;
 
@@ -15,14 +17,14 @@
 
   &__title {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: calc($layout-unit * 2);
   }
 
   &__notification {
     display: block;
     margin: 0 auto;
 
-    font-size: 12px;
+    font-size: 0.65rem;
 
     &-link {
       color: $color-translucent;

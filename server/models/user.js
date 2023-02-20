@@ -6,7 +6,7 @@ const userSchema = new Schema(
     name: { type: String, default: 'User' },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    diskSpace: { type: Number, default: 1024 ** 3 * 2 },
+    diskSpace: { type: Number, default: 1024 ** 3 * 0.3 },
     usedSpace: { type: Number, default: 0 },
     avatarURL: { type: String, default: null },
   },

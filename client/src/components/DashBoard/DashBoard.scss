@@ -2,10 +2,12 @@
 
 .dashboard {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
+  width: 100%;
   padding: 8px $layout-unit;
 
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   line-height: 1;
 
   color: $color-accent;
@@ -13,13 +15,24 @@
   background-color: $background-backdrop;
   border-radius: 8px;
 
+  @media screen and (min-width: $tablet) {
+    width: fit-content;
+
+    font-size: 1.5rem;
+  }
+
   &__space-info {
     margin-right: 16px;
   }
 
   &__space-indicator {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     fill: currentColor;
+
+    @media screen and (min-width: $tablet) {
+      width: 32px;
+      height: 32px;
+    }
   }
 }

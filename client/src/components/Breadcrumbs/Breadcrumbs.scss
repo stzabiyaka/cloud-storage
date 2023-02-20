@@ -1,12 +1,15 @@
 @import '../../helpers/styles/constants.scss';
 
 .breadcrumbs {
-  display: flex;
-  align-items: center;
-  list-style: none;
+  display: none;
   margin-bottom: $layout-unit;
 
   color: $color-translucent;
+
+  @media screen and (min-width: $tablet) {
+    display: flex;
+    align-items: center;
+  }
 
   &__item {
     display: flex;

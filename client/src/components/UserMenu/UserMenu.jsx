@@ -47,7 +47,7 @@ const UserMenu = () => {
           setIsVisible(true);
         }}
       >
-        <UserAvatar avatarSize={36} />
+        <UserAvatar />
       </button>
       {isVisible && (
         <div className="profile">

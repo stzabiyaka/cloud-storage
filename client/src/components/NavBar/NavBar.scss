@@ -1,7 +1,5 @@
 @import '../../helpers/styles/constants.scss';
 
-$margin-unit: calc($layout-unit * 2);
-
 .navbar {
   display: flex;
   justify-content: center;
@@ -17,19 +15,35 @@ $margin-unit: calc($layout-unit * 2);
 }
 
 .logo {
-  width: 32px;
-  height: 32px;
-  margin-right: $margin-unit;
+  width: 24px;
+  height: 24px;
 
   fill: currentColor;
 
+  @media screen and (min-width: $tablet) {
+    width: 32px;
+    height: 32px;
+  }
+
   &__title {
-    font-size: 24px;
+    display: none;
+    margin-left: $layout-unit;
+
+    font-size: 1.2rem;
     font-weight: 700;
 
     text-transform: uppercase;
 
     color: currentColor;
+
+    @media screen and (min-width: 450px) {
+      display: block;
+    }
+
+    @media screen and (min-width: $tablet) {
+      margin-left: calc($layout-unit * 2);
+      font-size: 1.5rem;
+    }
   }
 
   &__link {
@@ -53,7 +67,6 @@ $margin-unit: calc($layout-unit * 2);
   align-items: center;
   width: 100%;
   height: fit-content;
-  margin-right: $margin-unit;
 }
 
 .navlinks__list {
@@ -63,8 +76,12 @@ $margin-unit: calc($layout-unit * 2);
   margin-left: auto;
 
   &-item {
-    &:not(:last-of-type) {
-      margin-right: $margin-unit;
+    &:not(:first-of-type) {
+      margin-left: $layout-unit;
+
+      @media screen and (min-width: $tablet) {
+        margin-left: calc($layout-unit * 2);
+      }
     }
   }
 }

@@ -1,8 +1,12 @@
 @import '../../helpers/styles/constants.scss';
 
 .search__input {
-  height: 36px;
-  padding: 8px;
+  width: 150px;
+  height: 24px;
+  padding: 6px;
+  margin-left: $layout-unit;
+
+  font-size: 0.8rem;
 
   color: $color-secondary;
 
@@ -10,6 +14,15 @@
   border: 2px solid currentColor;
   border-radius: 8px;
   @include cssTransition(color transform filter);
+
+  @media screen and (min-width: $tablet) {
+    width: 250px;
+    height: 36px;
+    padding: 8px;
+    margin-left: calc($layout-unit * 2);
+
+    font-size: 1rem;
+  }
 
   &:focus {
     color: $color-accent;

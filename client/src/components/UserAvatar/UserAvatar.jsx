@@ -13,14 +13,13 @@ const UserAvatar = ({ avatarSize }) => {
       src={avatarURLResolver({ avatarURL })}
       alt="User avatar"
       className="avatar"
-      width={`${avatarSize}px`}
-      height={`${avatarSize}px`}
+      style={avatarSize ? { width: avatarSize + 'px', height: avatarSize + 'px' } : {}}
     />
   ) : (
     <svg
       className="avatar"
-      width={`${avatarSize}px`}
-      height={`${avatarSize}px`}
+      width={avatarSize ? avatarSize + 'px' : ''}
+      height={avatarSize ? avatarSize + 'px' : ''}
       aria-label="User avatar icon"
     >
       <use href={`${icons}#icon-avatar`} />

@@ -4,7 +4,13 @@
   display: flex;
   flex-direction: column;
 
+  margin-left: $layout-unit;
+
   z-index: 10;
+
+  @media screen and (min-width: $tablet) {
+    margin-left: calc($layout-unit * 2);
+  }
 
   &__button {
     border: none;
@@ -36,10 +42,12 @@
 }
 
 .profile {
-  width: 300px;
   position: absolute;
   top: 0;
   right: 0;
+
+  width: 100vw;
+  height: 100vh;
   padding: $layout-unit;
   z-index: 1;
 
@@ -47,7 +55,12 @@
   backdrop-filter: blur(5px);
   border-bottom-left-radius: 16px;
 
-  box-shadow: 0 0 50px $color-translucent;
+  @media screen and (min-width: $tablet) {
+    width: 300px;
+    height: auto;
+
+    box-shadow: 0 0 50px $color-translucent;
+  }
 
   &__welcome {
     display: block;

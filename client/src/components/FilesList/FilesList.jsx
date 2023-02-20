@@ -10,7 +10,9 @@ const FilesList = () => {
   const view = useSelector(selectView);
 
   if (!files.length) {
-    return <p className="notification">It looks like there are no files here, yet.</p>;
+    return (
+      <p className="notification">It looks like there are no any files or folders here, yet.</p>
+    );
   }
 
   return (
