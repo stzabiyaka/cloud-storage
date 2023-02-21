@@ -1,4 +1,3 @@
-// const escapeStringRegexp = require('escape-string-regexp');
 const { File } = require('../../models');
 
 const searchFiles = async (req, res) => {

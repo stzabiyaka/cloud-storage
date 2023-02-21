@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
 const { User } = require('../../models');
 const { requestError } = require('../../helpers');
 
@@ -10,8 +9,7 @@ const getCurrentUser = async (req, res) => {
     throw requestError(400, 'No user found.');
   }
 
-  const SECRET_KEY = config.get('SECRET_KEY');
-  const TOKEN_EXPIRES_IN = config.get('TOKEN_EXPIRES_IN');
+  const { SECRET_KEY, TOKEN_EXPIRES_IN } = process.env;
   const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: TOKEN_EXPIRES_IN });
 
   return res.status(200).json({
