@@ -18,8 +18,7 @@ const UserAvatar = ({ avatarSize }) => {
   ) : (
     <svg
       className="avatar"
-      width={avatarSize ? avatarSize + 'px' : ''}
-      height={avatarSize ? avatarSize + 'px' : ''}
+      style={avatarSize ? { width: avatarSize + 'px', height: avatarSize + 'px' } : {}}
       aria-label="User avatar icon"
     >
       <use href={`${icons}#icon-avatar`} />
