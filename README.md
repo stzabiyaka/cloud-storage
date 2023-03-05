@@ -1,4 +1,3 @@
-# cloud-storage
-Training full stack project
+# ClouDisk project
 
-Cloud file storage application. Frontend is based on React.js, Redux, Redux Toolkit. Backend developed using Node.js, Express, MongoDB.
+Training full stack project - cloud file storage application. Frontend is based on React.js, Redux, Redux Toolkit. Backend developed using Node.js, Express, MongoDB.
